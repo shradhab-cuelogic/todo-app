@@ -1,0 +1,21 @@
+<mat-card class='cardpos'>
+    <mat-card-title>MY TODO LIST</mat-card-title>
+    <mat-card-content>
+       <form [formGroup]='todoForm' (ngSubmit)='onSubmit'>
+        <mat-form-field>
+            <!-- <input matInput [matDatepicker]='mydatepicker' placeholder="Enter Date" formControlName="date"> -->
+            <mat-datepicker-toggle  [for]='mydatepicker' matSuffix></mat-datepicker-toggle>
+            <mat-datepicker #mydatepicker></mat-datepicker>
+        </mat-form-field>
+        <!-- <div *ngFor='let item of getTodoList; let i = index;'>
+            <mat-checkbox [formControl]='control' id="i">{{ listOfTodo[i] }}</mat-checkbox>
+        </div> -->
+        <div>
+            <mat-radio-button value='angular'>Angular</mat-radio-button>
+            <mat-radio-button value='react'>React</mat-radio-button>
+            <mat-radio-button value='vue'>Vue</mat-radio-button>
+        </div>
+        <button mat-raised-button type="submit">Add</button>
+       </form>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,41 @@
+<mat-card class='cardpos'>
+    <mat-card-title>
+        Sign Up
+    </mat-card-title>
+    <div *ngIf='isLoading'>
+        <app-loading-spinner></app-loading-spinner>
+    </div>
+    <mat-card-content *ngIf='!isLoading'>
+        <form [formGroup]='signupForm' (ngSubmit)='onSubmit()'>
+            <mat-form-field appearance='legacy'>
+                <mat-label>First Name</mat-label>
+                <input matInput formControlName="fname">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Last Name</mat-label>
+                <input matInput formControlName="lname">
+            </mat-form-field>
+            <mat-form-field appearance='legacy'>
+                <mat-label>Address</mat-label>
+                <input matInput formControlName="address">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Password</mat-label>
+                <input matInput formControlName="password" type="password">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Profile Picture</mat-label>
+                <input matInput formControlName="profilePicture">
+            </mat-form-field>
+            <mat-card-actions align='end'>
+                <button mat-raised-button type="submit">Sign Up</button>
+            </mat-card-actions>
+        </form>
+        
+    </mat-card-content>
+   
+</mat-card>
