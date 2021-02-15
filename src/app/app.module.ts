@@ -16,6 +16,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SignupComponent } from './components/signup/signup.component';
@@ -27,6 +28,7 @@ import { ProfilepageComponent } from './components/profilepage/profilepage.compo
 import {AuthService} from '../app/services/auth.service';
 import { TodoComponent } from './components/todo/todo.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +54,9 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSnackBarModule,
+    HttpClientModule
   ],
   providers: [
     AuthService

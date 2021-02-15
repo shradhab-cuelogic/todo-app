@@ -19,6 +19,7 @@ export class SignupComponent implements OnInit {
     profilePicture: ['', Validators.required],
   })
   isLoading = false;
+  errorMessage = ''
   ngOnInit(): void {
   }
 
@@ -28,8 +29,23 @@ export class SignupComponent implements OnInit {
     const email = this.signupForm.value.email;
     const password = this.signupForm.value.password;
     this.isLoading = true;
-    this.authService.signUp(email, password);
+    this.authService.signUp(this.signupForm.value);
+    // this.errorMessage = this.authService.errorMessage;
+    // console.log('THE this.authService.errorMessage', this.errorMessage);
     this.isLoading = false;
     this.signupForm.reset();
+    // createUSer()
   }
+
+  // createUSer() {
+  //   console.log('from create', this.signupForm);
+  //   const userObj = {"address":"pune","email":"anand@gmail.com","fname":"anand","gender":"male","lname":"singh","profileimage":"aaa"}
+  //   this.authService.createUser(userObj)
+  //   .subscribe( res => {
+  //     console.log('FROM CREATE USER', res)
+  //   },
+  //   error=>{
+  //     console.log('ERROR FROM CREATE USER', error);
+  //   })
+  // }
 }
