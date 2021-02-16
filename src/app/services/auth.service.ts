@@ -51,7 +51,9 @@ export class AuthService {
       console.log('Login successfull', res);
       this.router.navigate(['todo']);
     } )
-    .catch()
+    .catch(error=>{
+      console.log('ERROR', error);
+    })
   }
 
   createUser(userObj: Object) {

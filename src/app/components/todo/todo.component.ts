@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder } from '@angular/forms';
+import { Component, createPlatform, OnInit } from '@angular/core';
+import { FormArray, FormBuilder,FormControl, FormGroup } from '@angular/forms';
 import { TodoService } from 'src/app/services/todo.service';
 @Component({
   selector: 'app-todo',
@@ -7,31 +7,58 @@ import { TodoService } from 'src/app/services/todo.service';
   styleUrls: ['./todo.component.css']
 })
 export class TodoComponent implements OnInit {
-
-  constructor(private fb: FormBuilder, private todoService: TodoService) { }
-  listOfTodo: Array<String> = ['Eat', 'Sleep', 'Repeat'];
+  todoForm: FormGroup;
+  todoData = [
+    { name: 'eat', value: 'Eat' },
+    { name: 'sleep', value: 'Sleep' },
+  ]
+  constructor(private fb: FormBuilder, private todoService: TodoService) {
+    this.todoForm = this.fb.group({
+      date: [],
+      listOfTodo: new FormArray([]),
+      
+    });
+    this.addCheckboxes();
+  }
+ 
   ngOnInit(): void {
   }
-  todoForm = this.fb.group({
-    date: [''],
-    listOfTodo: this.addTodoList()
-  })
+ 
+  get getListArray() {
+    return this.todoForm.controls.listOfTodo as FormArray;
+  }
+
+  addCheckboxes() {
+    this.todoData.forEach(()=> {
+      this.getListArray.push(new FormControl(false));
+    })
+  }
 
   onSubmit() {
-    console.log('sssads', this.todoForm.value)
-    this.createTodoList(this.todoForm.value);
+    const value = this.getSelectedCheckboxValue();
+    const todoFormValue = {...this.todoForm.value, listOfTodo: value};
+    console.log(todoFormValue);
+    this.createTodoList(todoFormValue);
   }
 
-  addTodoList() {
-    const arr = this.listOfTodo.map(ele=>{
-      return this.fb.control(false);
-    })
-    return this.fb.array(arr);
+  getSelectedCheckboxValue() {
+     const selectedName = this.todoForm.controls.listOfTodo.value
+     .map(( item:any, i: number ) => 
+         item ? this.todoData[i].value : null 
+     ).filter((item:any) => item !==null );
+     console.log(selectedName)
+     return selectedName;
   }
+  // addTodoList() {
+  //   const arr = this.listOfTodo.map(ele=>{
+  //     return this.fb.control(false);
+  //   })
+  //   return this.fb.array(arr);
+  // }
 
-  getTodoList() {
-    return <FormArray>this.todoForm.get('listOfTodo');
-  }
+  // getTodoList() {
+  //   return <FormArray>this.todoForm.get('listOfTodo');
+  // }
 
   createTodoList(todoObj: any) {
     this.todoService.createTodoList(todoObj)

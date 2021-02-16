@@ -10,30 +10,57 @@
             <mat-form-field appearance='legacy'>
                 <mat-label>First Name</mat-label>
                 <input matInput formControlName="fname">
+                <mat-error *ngIf="fname?.errors?.required">
+                    Required Field
+                </mat-error>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Last Name</mat-label>
                 <input matInput formControlName="lname">
+                <mat-error *ngIf="lname?.errors?.required">
+                    Required Field
+                </mat-error>
             </mat-form-field>
             <mat-form-field appearance='legacy'>
                 <mat-label>Address</mat-label>
                 <input matInput formControlName="address">
+                <mat-error *ngIf="address?.errors?.required">
+                    Required Field
+                </mat-error>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Email</mat-label>
                 <input matInput formControlName="email">
+                <mat-error *ngIf="email?.errors?.required">
+                    Required Field
+                </mat-error>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Password</mat-label>
                 <input matInput formControlName="password" type="password">
+                <mat-error *ngIf="password?.errors?.required">
+                    Required Field
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Confirm Password</mat-label>
+                <input matInput formControlName="confirm_password" type="password">
+                <mat-error *ngIf="confirmPassword?.errors?.required">
+                    Required Field
+                </mat-error>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Profile Picture</mat-label>
                 <input matInput formControlName="profilePicture">
             </mat-form-field>
-            <mat-card-actions align='end'>
-                <button mat-raised-button type="submit">Sign Up</button>
-            </mat-card-actions>
+            <div>
+                <mat-radio-group  name="gender" formControlName="gender">
+                    <mat-radio-button value="male">Male</mat-radio-button>&nbsp;&nbsp;&nbsp;
+                    <mat-radio-button value="female">Female</mat-radio-button>
+                  </mat-radio-group>
+            </div>
+            <button mat-raised-button type="submit" class="btn-style">Sign Up</button>
+            <button mat-raised-button type="button" style="margin-left: 21px;" (click)="resetForm()">Reset</button>
         </form>
         
     </mat-card-content>
