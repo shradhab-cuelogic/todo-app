@@ -4,12 +4,15 @@ import { ProfilepageComponent } from './components/profilepage/profilepage.compo
 import { SigninComponent } from './components/signin/signin.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { TodoComponent } from './components/todo/todo.component';
+import { TododialogComponent } from './components/tododialog/tododialog.component';
+import { TodolistComponent } from './components/todolist/todolist.component';
 
 const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'signin', component: SigninComponent },
   { path: 'profilepage', component: ProfilepageComponent },
-  { path: 'todo', component: TodoComponent  }
+  { path: 'todo', component: TodoComponent  },
+  { path: 'tododashboard', component: TodolistComponent }
 ];
 
 @NgModule({

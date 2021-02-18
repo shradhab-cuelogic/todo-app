@@ -36,7 +36,7 @@ export class AuthService {
       delete userObj.password
       console.log('USER OBJ AFTER DELETIION', userObj);
       this.createUser(userObj);
-      this.router.navigate(['profilepage']);
+      this.router.navigate(['signin']);
     } ) 
     .catch( error=> {
       console.log(error, error.message);

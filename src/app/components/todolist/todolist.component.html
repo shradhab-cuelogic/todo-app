@@ -1,0 +1,20 @@
+
+<button mat-raised-button (click)="openDialog()" style="margin-left: 20px; margin-top: 20px;">Add todo</button>
+<span class="searchPos"><app-search></app-search></span>
+<div *ngFor="let item of list">
+    <mat-list>
+        <mat-card class="cardpos">
+            <mat-card-title>MY TODO LIST</mat-card-title>
+            <mat-card-content>
+                <span class="fontStyle">Date Created: </span>{{ item?.date | date }}<br>
+                <span class="fontStyle">Categories:</span>{{ item?.listOfTodo }}
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button>LIKE</button>
+                <button mat-raised-button>SHARE</button>
+            </mat-card-actions>
+        </mat-card>
+       </mat-list>
+</div>
+
+<!-- <app-profilepage></app-profilepage> -->

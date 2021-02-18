@@ -17,6 +17,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatDialogModule} from '@angular/material/dialog';
 
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SignupComponent } from './components/signup/signup.component';
@@ -29,6 +30,11 @@ import {AuthService} from '../app/services/auth.service';
 import { TodoComponent } from './components/todo/todo.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { HttpClientModule } from '@angular/common/http';
+import { TodolistComponent } from './components/todolist/todolist.component';
+import { TododialogComponent } from './components/tododialog/tododialog.component';
+import {MatListModule} from '@angular/material/list';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { SearchComponent } from './components/search/search.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,8 +43,12 @@ import { HttpClientModule } from '@angular/common/http';
     SigninComponent,
     ProfilepageComponent,
     TodoComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    TodolistComponent,
+    TododialogComponent,
+    SearchComponent
   ],
+  entryComponents: [TododialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -55,7 +65,10 @@ import { HttpClientModule } from '@angular/common/http';
     MatNativeDateModule,
     MatCheckboxModule,
     MatRadioModule,
+    MatDialogModule,
     MatSnackBarModule,
+    MatListModule,
+    MatAutocompleteModule,
     HttpClientModule
   ],
   providers: [

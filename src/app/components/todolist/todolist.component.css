@@ -1,0 +1,13 @@
+.cardpos {
+    width: 50%;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+.fontStyle {
+    font-weight: 600;
+    
+}
+.searchPos {
+    display: inline-block;
+    margin-left: 300px;
+}
