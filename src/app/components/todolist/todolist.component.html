@@ -1,6 +1,6 @@
 
 <button mat-raised-button (click)="openDialog()" style="margin-left: 20px; margin-top: 20px;">Add todo</button>
-<span class="searchPos"><app-search></app-search></span>
+<span class="searchPos" ><app-search [parentData]="test"></app-search></span>
 <div *ngFor="let item of list">
     <mat-list>
         <mat-card class="cardpos">

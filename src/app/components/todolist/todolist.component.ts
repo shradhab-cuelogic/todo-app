@@ -12,16 +12,16 @@ export class TodolistComponent implements OnInit {
 
   constructor( public dialog: MatDialog, private todoListService: TodoService )  {
    }
+  test= 'from parent';
   list: any = [];
   categories: any = [];
+
   openDialog() {
     this.dialog.open(TododialogComponent);
     const dialogRef = this.dialog.open(TododialogComponent)
     dialogRef.afterClosed().subscribe( res=> {
-      console.log(res)
       this.getTodoList();
     })
-    console.log('OPEN')
   } 
 
   ngOnInit(): void {
@@ -33,16 +33,7 @@ export class TodolistComponent implements OnInit {
       const data:any = res
       const keys = Object.keys(res);
 
-      this.list = keys.map( item => data[item])
-      //this.categories = this.list.map( (item: any) => item.listOfTodo)
-     
-      // const newObj = {
-      //   date: this.list.date,
-      //   categories: this.categories
-      // }
-
-      console.log( 'new obj', this.list[0].listOfTodo);
-
+      this.list = keys.map( item => data[item]);
 
     }, error=>{
       console.log('ERROR', error);

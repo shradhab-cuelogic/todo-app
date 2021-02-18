@@ -26,7 +26,6 @@ export class SignupComponent implements OnInit {
 
 
   onSubmit() {
-    console.log('From Values', this.signupForm.value)
     this.isLoading = true;
    if(this.signupForm.value.password === this.signupForm.value.confirm_password) {
     this.authService.signUp(this.signupForm.value);
@@ -34,7 +33,6 @@ export class SignupComponent implements OnInit {
     this.resetForm();
    } else {
      this.isLoading = false;
-     console.log('Error')
    }
   ;
   }
