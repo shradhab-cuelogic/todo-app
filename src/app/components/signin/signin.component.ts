@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
@@ -8,19 +10,20 @@ import { AuthService } from '../../services/auth.service';
 })
 export class SigninComponent implements OnInit {
 
-  constructor(private fb: FormBuilder, private authService: AuthService) { }
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) { }
   signinForm = this.fb.group({
     email: ['', Validators.required],
     password: ['', Validators.required]
-  })
+  });
+  userToken: any;
+  isAuthenticated = false;
+  testMessage: string = 'Helloo'
   ngOnInit(): void {
   }
   onSubmit() {
-   // this.email;
-    console.log('SignIn', this.signinForm.value);
     const email = this.signinForm.value.email;
     const password = this.signinForm.value.password;
-    this.authService.signIn(email, password);
+    this.logInUSer(email,password); 
     this.resetForm();
   }
   get email() {
@@ -31,5 +34,21 @@ export class SigninComponent implements OnInit {
   }
   resetForm() {
     this.signinForm.reset();
+  }
+
+  logInUSer(email: string, password: string) {
+    this.authService.signIn(email, password).subscribe(res=>{
+      this.isAuthenticated = true;
+      this.authService.userData.next(this.isAuthenticated);
+      const userData: any = res;
+      const email = userData.email;
+      this.userToken = userData.idToken
+
+      localStorage.setItem('userToken', this.userToken)
+      localStorage.setItem('email', email);
+      this.router.navigate(['tododashboard']);
+    }, error=>{
+      console.log('ERROR', error);
+    })
   }
 }

@@ -1,10 +1,10 @@
 
 <button mat-raised-button (click)="openDialog()" style="margin-left: 20px; margin-top: 20px;">Add todo</button>
-<span class="searchPos" ><app-search [parentData]="test"></app-search></span>
+<span class="searchPos" ><app-search [parentData]="list"></app-search></span>
 <div *ngFor="let item of list">
     <mat-list>
         <mat-card class="cardpos">
-            <mat-card-title>MY TODO LIST</mat-card-title>
+            <mat-card-title>TITLE: {{ item?.title }}</mat-card-title>
             <mat-card-content>
                 <span class="fontStyle">Date Created: </span>{{ item?.date | date }}<br>
                 <span class="fontStyle">Categories:</span>{{ item?.listOfTodo }}

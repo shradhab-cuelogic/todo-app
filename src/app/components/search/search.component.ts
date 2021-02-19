@@ -21,7 +21,7 @@ export class SearchComponent implements OnInit {
    {  name: 'React' },
   ]
   filteredOptions: Observable<string[]> | undefined;
-  @Input() public parentData: any;
+  @Input() public parentData: any = [];
   ngOnInit(): void {
     console.log('PARENT', this.parentData)
     const data = this.parentData

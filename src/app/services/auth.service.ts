@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { HttpClient } from '@angular/common/http';
 
 import { Router } from '@angular/router';
-
+import { BehaviorSubject, Subject } from 'rxjs';
 
 interface User {
   fname: string,
@@ -19,7 +19,7 @@ interface User {
 })
 export class AuthService {
 
-  // user: Observable<firebase>;
+  userData = new BehaviorSubject(false);
 
   constructor(
     public afAuth: AngularFireAuth, //inject firebase auth service
@@ -28,8 +28,6 @@ export class AuthService {
   ) { }
     errorMessage = '';
   signUp(userObj: any) {
-    //  {email, password} = userObj; 
-    console.log('USEROBJ', userObj)
     this.afAuth.createUserWithEmailAndPassword(userObj.email,userObj.password)
     .then( res=> {
       console.log('Success', res);
@@ -46,13 +44,10 @@ export class AuthService {
   }
 
   signIn(email:string, password:string) {
-    this.afAuth.signInWithEmailAndPassword(email,password)
-    .then( res=> {
-      console.log('Login successfull', res);
-      this.router.navigate(['todo']);
-    } )
-    .catch(error=>{
-      console.log('ERROR', error);
+    return this.http.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBukyd8fZDl9214yRUAQaLjasrZaU8e7Ik', {
+      email: email,
+      password: password,
+      returnSecureToken: true
     })
   }
 

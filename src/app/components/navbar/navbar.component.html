@@ -1,7 +1,15 @@
 <mat-toolbar color='primary' class="navbar">
-    <div>My Application</div>
-    <div >
-        <span routerLink="signup">SignUp</span>
-        <span routerLink="signin">SignIn</span>
+    <div (click)="navigateDashboard()">ToDo App</div>
+    <div > 
+        <span *ngIf="!isAuthenticated">
+            <span routerLink="signup">SignUp </span>
+            <span routerLink="signin">SignIn</span>
+        </span>
+            <span *ngIf="isAuthenticated">
+                <span routerLink="profilepage">Profile Page</span>
+            </span>
+            <span *ngIf="isAuthenticated">
+                <span routerLink="profilepage" (click)="logout()">LogOut</span>
+            </span>
     </div>
   </mat-toolbar>

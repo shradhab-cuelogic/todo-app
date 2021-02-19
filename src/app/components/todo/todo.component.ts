@@ -16,7 +16,7 @@ export class TodoComponent implements OnInit {
     this.todoForm = this.fb.group({
       date: [],
       listOfTodo: new FormArray([]),
-      
+      title: []
     });
     this.addCheckboxes();
   }
