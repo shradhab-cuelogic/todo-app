@@ -35,6 +35,7 @@ import { TododialogComponent } from './components/tododialog/tododialog.componen
 import {MatListModule} from '@angular/material/list';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { SearchComponent } from './components/search/search.component';
+import { EditdialogComponent } from './components/editdialog/editdialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +47,8 @@ import { SearchComponent } from './components/search/search.component';
     LoadingSpinnerComponent,
     TodolistComponent,
     TododialogComponent,
-    SearchComponent
+    SearchComponent,
+    EditdialogComponent
   ],
   entryComponents: [TododialogComponent],
   imports: [

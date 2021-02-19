@@ -15,6 +15,7 @@ export class TodolistComponent implements OnInit {
   test= 'from parent';
   list: any = [];
   categories: any = [];
+  listFromSearch: any = [];
 
   openDialog() {
     this.dialog.open(TododialogComponent);
@@ -26,6 +27,7 @@ export class TodolistComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTodoList();
+    console.log('LIST FROM CHILD', this.listFromSearch)
   }
 
   getTodoList() {
@@ -38,5 +40,9 @@ export class TodolistComponent implements OnInit {
     }, error=>{
       console.log('ERROR', error);
     })
+  }
+
+  onEdit(){
+   // this.dialog.open(EditdialogComponent);
   }
 }

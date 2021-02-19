@@ -20,7 +20,9 @@ interface User {
 export class AuthService {
 
   userData = new BehaviorSubject(false);
-
+  editUser = new BehaviorSubject(false);
+  editUserData = new BehaviorSubject(Object);
+  
   constructor(
     public afAuth: AngularFireAuth, //inject firebase auth service
     public router: Router,
@@ -32,14 +34,11 @@ export class AuthService {
     .then( res=> {
       console.log('Success', res);
       delete userObj.password
-      console.log('USER OBJ AFTER DELETIION', userObj);
       this.createUser(userObj);
       this.router.navigate(['signin']);
     } ) 
     .catch( error=> {
-      console.log(error, error.message);
       this.errorMessage = error.message;
-      console.log('this.error', this.errorMessage);
     } )
   }
 

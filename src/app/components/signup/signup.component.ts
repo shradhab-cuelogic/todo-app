@@ -20,21 +20,31 @@ export class SignupComponent implements OnInit {
     gender: ['']
   })
   isLoading = false;
-  errorMessage = ''
+  errorMessage = '';
+  isEdit= false;
+  editUserData: any;
   ngOnInit(): void {
+    this.authService.editUser.subscribe(val=>{
+      this.isEdit = val;
+    })
+    this.authService.editUserData.subscribe(val=>{
+      this.editUserData = val;
+    })
+    this.updateUser();
   }
 
 
   onSubmit() {
-    this.isLoading = true;
-   if(this.signupForm.value.password === this.signupForm.value.confirm_password) {
-    this.authService.signUp(this.signupForm.value);
-    this.isLoading = false;
-    this.resetForm();
-   } else {
-     this.isLoading = false;
-   }
-  ;
+    if (this.isEdit) {
+      // edit
+      // this.updateUser();
+    } else {
+      if (this.signupForm.value.password === this.signupForm.value.confirm_password) {
+        this.authService.signUp(this.signupForm.value);
+        this.isLoading = false;
+        this.resetForm();
+      }
+    }
   }
 
   resetForm() {
@@ -63,6 +73,16 @@ export class SignupComponent implements OnInit {
 
   get confirmPassword() {
     return this.signupForm.get('confirm_password');
+  }
+  updateUser() {
+    this.signupForm.patchValue({
+      fname: this.editUserData.fname,
+      lname: this.editUserData.lname,
+      email: this.editUserData.email,
+      profilePicture: this.editUserData.profilePicture,
+      address: this.editUserData.address,
+      gender: this.editUserData.gender
+    })
   }
 }
 

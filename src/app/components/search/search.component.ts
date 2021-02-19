@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 @Component({
@@ -22,10 +23,8 @@ export class SearchComponent implements OnInit {
   ]
   filteredOptions: Observable<string[]> | undefined;
   @Input() public parentData: any = [];
+  @Output() public searchEvent = new EventEmitter();
   ngOnInit(): void {
-    console.log('PARENT', this.parentData)
-    const data = this.parentData
-    console.log('PARENT', data)
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value=> this.filterValue(value) )
@@ -33,17 +32,26 @@ export class SearchComponent implements OnInit {
   }
 
   filterValue(value: any) {
-    console.log('PARENT', this.parentData)
     const filterValue = value.toLowerCase();
     return this.options.filter(item => 
       item.toLowerCase().includes(filterValue))
   }
 
-  // onSearch(value: any) {
-  //   console.log('Value', value);
-  // }
-
+ 
   displayFn(subject: any) {
     return subject ? subject.name : undefined;
+  }
+  searchValue() {
+    //console.log('EVENT', this.myControl.value);
+    const searchValue = this.myControl.value;
+    const data = this.parentData;
+    console.log(searchValue, data);
+   const list =  data.filter((item: any) => {
+      if(item.title.toLowerCase() === searchValue.toLowerCase()) {
+        return item;
+      }
+    })
+    console.log('ELE FOund', list);
+    this.searchEvent.emit(list)
   }
 }

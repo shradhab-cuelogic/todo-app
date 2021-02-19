@@ -1,6 +1,6 @@
 <mat-card class='cardpos'>
     <mat-card-title>
-        Sign Up
+       {{ isEdit ? 'Update User' : 'Sign Up' }} 
     </mat-card-title>
     <div *ngIf='isLoading'>
         <app-loading-spinner></app-loading-spinner>
@@ -35,6 +35,7 @@
                     Required Field
                 </mat-error>
             </mat-form-field>
+           <span *ngIf="!isEdit">
             <mat-form-field>
                 <mat-label>Password</mat-label>
                 <input matInput formControlName="password" type="password">
@@ -49,6 +50,7 @@
                     Required Field
                 </mat-error>
             </mat-form-field>
+           </span>
             <mat-form-field>
                 <mat-label>Profile Picture</mat-label>
                 <input matInput formControlName="profilePicture">
@@ -59,7 +61,7 @@
                     <mat-radio-button value="female">Female</mat-radio-button>
                   </mat-radio-group>
             </div>
-            <button mat-raised-button type="submit" class="btn-style">Sign Up</button>
+            <button mat-raised-button type="submit" class="btn-style">{{ isEdit ? 'Update' : 'Sign Up' }} </button>
             <button mat-raised-button type="button" style="margin-left: 21px;" (click)="resetForm()">Reset</button>
         </form>
         
