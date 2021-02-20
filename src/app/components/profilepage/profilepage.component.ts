@@ -30,7 +30,6 @@ export class ProfilepageComponent implements OnInit {
         const response: any = res
         const userDataKey: any = Object.keys(response);
         this.userData = response[userDataKey[0]];
-        // this.editUserData.next(this.userData);
         this.authService.editUserData.next(this.userData);
       }, error=>{
         console.log('error', error);

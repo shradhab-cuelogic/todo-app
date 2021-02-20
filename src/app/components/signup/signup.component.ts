@@ -36,8 +36,12 @@ export class SignupComponent implements OnInit {
 
   onSubmit() {
     if (this.isEdit) {
-      // edit
-      // this.updateUser();
+      console.log('form', this.signupForm);
+      this.authService.updateUSer(this.signupForm.value).subscribe(res=>{
+      },
+      error=>{
+        console.log(error);
+      })
     } else {
       if (this.signupForm.value.password === this.signupForm.value.confirm_password) {
         this.authService.signUp(this.signupForm.value);
@@ -82,7 +86,7 @@ export class SignupComponent implements OnInit {
       profilePicture: this.editUserData.profilePicture,
       address: this.editUserData.address,
       gender: this.editUserData.gender
-    })
+    });
   }
 }
 

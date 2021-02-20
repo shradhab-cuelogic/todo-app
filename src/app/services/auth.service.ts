@@ -51,7 +51,6 @@ export class AuthService {
   }
 
   createUser(userObj: Object) {
-    console.log('servie', userObj)
     // return this.http.post<User>('https://todo-app-a6fc9-default-rtdb.firebaseio.com/users.json', {userObj})
     fetch('https://todo-app-a6fc9-default-rtdb.firebaseio.com/users.json', {
       method: 'POST',
@@ -67,6 +66,12 @@ export class AuthService {
       console.log('res', res)
     })
     .catch()
+  }
+
+  updateUSer(userObj: any) {
+    return this.http.put('https://todo-app-a6fc9-default-rtdb.firebaseio.com/users.json', {
+      ...userObj
+    })
   }
 
 }
