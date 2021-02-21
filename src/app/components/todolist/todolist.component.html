@@ -1,6 +1,11 @@
 
 <button mat-raised-button (click)="openDialog()" style="margin-left: 20px; margin-top: 20px;">Add todo</button>
-<span class="searchPos" ><app-search [parentData]="list" (searchEvent)="listFromSearch=$event"></app-search></span>
+<!-- <span class="searchPos" ><app-search [parentData]="list" (searchEvent)="listFromSearch=$event"></app-search></span> -->
+<span>
+    <mat-form-field>
+        <input type="text" placeholder="Search" [(ngModel)]="searchValueData" (ngModelChange)="searchValue()" matInput>
+    </mat-form-field>
+</span>
 <div *ngFor="let item of list">
     <mat-list>
         <mat-card class="cardpos">

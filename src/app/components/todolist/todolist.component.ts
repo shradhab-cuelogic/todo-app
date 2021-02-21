@@ -16,7 +16,7 @@ export class TodolistComponent implements OnInit {
   list: any = [];
   categories: any = [];
   listFromSearch: any = [];
-
+  searchValueData: any;
   openDialog() {
     this.dialog.open(TododialogComponent);
     const dialogRef = this.dialog.open(TododialogComponent)
@@ -27,7 +27,6 @@ export class TodolistComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTodoList();
-    console.log('LIST FROM CHILD', this.listFromSearch)
   }
 
   getTodoList() {
@@ -45,4 +44,17 @@ export class TodolistComponent implements OnInit {
   onEdit(){
    // this.dialog.open(EditdialogComponent);
   }
+  searchValue() {
+  if(this.searchValueData === '') {
+      this.ngOnInit();
+  } else {
+    this.list = this.list.filter((item: any)=>{
+      // if(item.title.toLowerCase() === this.searchValueData.toLowerCase()) {
+      //   console.log('item', item)
+      //   return item;
+      return item.title.toLowerCase().match(this.searchValueData.toLowerCase());
+      })
+    }
+  }
 }
+

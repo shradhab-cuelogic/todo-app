@@ -23,7 +23,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { SigninComponent } from './components/signin/signin.component';
 
-import {ReactiveFormsModule} from '@angular/forms';
+import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import { ProfilepageComponent } from './components/profilepage/profilepage.component';
 
 import {AuthService} from '../app/services/auth.service';
@@ -71,6 +71,7 @@ import { EditdialogComponent } from './components/editdialog/editdialog.componen
     MatSnackBarModule,
     MatListModule,
     MatAutocompleteModule,
+    FormsModule,
     HttpClientModule
   ],
   providers: [

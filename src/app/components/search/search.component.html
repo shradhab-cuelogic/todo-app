@@ -1,20 +1,4 @@
-<form >
-    <!-- <mat-form-field>
-        <input type="text"  [matAutocomplete]="auto" matInput placeholder="search" [formControl]="myControl" />
-        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                {{ option }}
-            </mat-option>
-        </mat-autocomplete>
-    </mat-form-field> -->
-    <!-- <mat-form-field>
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email">
-            <mat-error *ngIf="email?.errors?.required">
-                 First Name is Required!
-            </mat-error>
-    </mat-form-field> -->
+
     <mat-form-field>
-        <input type="text" placeholder="Search" (change)="searchValue()" matInput [formControl]="myControl">
+        <input type="text" placeholder="Search" [(ngModel)]="searchValueData" (ngModelChange)="searchValue()" matInput>
     </mat-form-field>
-</form>
