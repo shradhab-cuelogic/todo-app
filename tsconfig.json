@@ -20,7 +20,11 @@
       "es2018",
       "dom"
     ],
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "typeRoots": [
+      "../../typings",
+      "../../node_modules/@types"
+  ]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

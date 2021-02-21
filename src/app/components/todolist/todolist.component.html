@@ -19,7 +19,7 @@
             </mat-card-content>
             <mat-card-actions>
                 <button mat-raised-button (click)="onEdit()">EDIT</button>
-                <button mat-raised-button>DELETE</button>
+                <button mat-raised-button (click)="onDelete(item.id)">DELETE</button>
             </mat-card-actions>
         </mat-card>
        </mat-list>

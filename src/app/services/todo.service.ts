@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { TodolistComponent } from '../components/todolist/todolist.component';
+import { v4 as uuidv4 } from 'uuid';
 
 interface TodoList {
   date: string,
@@ -17,7 +17,7 @@ export class TodoService {
 
   createTodoList(todoObj: any) {
     const email = localStorage.getItem('email');
-    const updatedTodoObj = {...todoObj, email}
+    const updatedTodoObj = {...todoObj, email, id: uuidv4()};
     return this.httpClient.post<TodoList>('https://todo-app-a6fc9-default-rtdb.firebaseio.com/todos.json', updatedTodoObj)
   }
 
@@ -27,6 +27,12 @@ export class TodoService {
   }
 
   deleteTodolist(key:string) {
-    return this.httpClient.delete(`https://todo-app-a6fc9-default-rtdb.firebaseio.com/todos/${key}`);
+    console.log('KEY FROM DELETE',key)
+    return this.httpClient.delete(`https://todo-app-a6fc9-default-rtdb.firebaseio.com/todos/${key}.json`);
+  }
+
+  getObjToDelete(id: string) {
+    
+    return this.httpClient.get(`https://todo-app-a6fc9-default-rtdb.firebaseio.com/todos.json?orderBy="id"&equalTo="${id}"`);
   }
 }
