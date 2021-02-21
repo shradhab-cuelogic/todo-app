@@ -61,7 +61,7 @@
                     <mat-radio-button value="female">Female</mat-radio-button>
                   </mat-radio-group>
             </div>
-            <button mat-raised-button type="submit" class="btn-style">{{ isEdit ? 'Update' : 'Sign Up' }} </button>
+            <button mat-raised-button type="submit" class="btn-style" [disabled]="!signupForm.valid">{{ isEdit ? 'Update' : 'Sign Up' }} </button>
             <button mat-raised-button type="button" style="margin-left: 21px;" (click)="resetForm()">Reset</button>
         </form>
         

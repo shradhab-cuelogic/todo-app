@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   isAuthenticated: boolean = false;
   ngOnInit(): void {
     this.userSub = this.authService.userData.subscribe(authFlag => {
-      this.isAuthenticated = authFlag
+      this.isAuthenticated = authFlag;
     });
   }
   ngAfterViewInit() {

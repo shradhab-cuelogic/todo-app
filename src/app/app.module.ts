@@ -36,6 +36,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { SearchComponent } from './components/search/search.component';
 import { EditdialogComponent } from './components/editdialog/editdialog.component';
+import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +49,8 @@ import { EditdialogComponent } from './components/editdialog/editdialog.componen
     TodolistComponent,
     TododialogComponent,
     SearchComponent,
-    EditdialogComponent
+    EditdialogComponent,
+    PagenotfoundComponent
   ],
   entryComponents: [TododialogComponent],
   imports: [
