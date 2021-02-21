@@ -24,18 +24,21 @@ export class AuthService {
   );
   editUser = new BehaviorSubject(false);
   editUserData = new BehaviorSubject(Object);
-  
+  userKey = new BehaviorSubject('');
   constructor(
     public afAuth: AngularFireAuth, //inject firebase auth service
     public router: Router,
     public http: HttpClient
   ) { }
     errorMessage = '';
+
   signUp(userObj: any) {
     this.afAuth.createUserWithEmailAndPassword(userObj.email,userObj.password)
     .then( res=> {
       console.log('Success', res);
-      delete userObj.password
+      delete userObj.password;
+      delete userObj.confirm_password;
+
       this.createUser(userObj);
       this.router.navigate(['signin']);
     } ) 
@@ -71,9 +74,19 @@ export class AuthService {
   }
 
   updateUSer(userObj: any) {
-    return this.http.put('https://todo-app-a6fc9-default-rtdb.firebaseio.com/users.json', {
+    let key = '';
+    this.userKey.subscribe(res=>{
+       key = res
+    })
+    // const email = localStorage.getItem('email');
+    // const updatedObj = {...userObj, email} 
+    return this.http.put(`https://todo-app-a6fc9-default-rtdb.firebaseio.com/users/${key}.json`, {
       ...userObj
     })
+  }
+
+  deleteUser(key: string) {
+    return this.http.delete(`https://todo-app-a6fc9-default-rtdb.firebaseio.com/users/${key}.json`)
   }
 
 }

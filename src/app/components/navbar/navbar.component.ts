@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { SigninComponent } from '../signin/signin.component';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { SignupComponent } from '../signup/signup.component';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit, AfterViewInit {
 
   @ViewChild(SigninComponent) userData: SigninComponent;
-
+  @ViewChild(SignupComponent) signUp: SignupComponent;
   constructor( private authService: AuthService, private router: Router) { }
   userSub: Subscription;
   isAuthenticated: boolean = false;
@@ -29,9 +30,9 @@ export class NavbarComponent implements OnInit, AfterViewInit {
     this.userSub.unsubscribe();
   }
   logout() {
-    console.log('logout')
     this.authService.userData.next(false);
     localStorage.clear();
+    //this.signUp.resetForm();
     this.router.navigate(['signin'])
   }
   navigateDashboard() {

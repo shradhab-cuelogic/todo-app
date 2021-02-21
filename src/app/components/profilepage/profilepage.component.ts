@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProfilepageService } from 'src/app/services/profilepage.service';
 import { Router } from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import { EditdialogComponent } from '../editdialog/editdialog.component';
 import { AuthService } from 'src/app/services/auth.service';
-import { BehaviorSubject } from 'rxjs';
 @Component({
   selector: 'app-profilepage',
   templateUrl: './profilepage.component.html',
@@ -18,7 +17,8 @@ export class ProfilepageComponent implements OnInit {
      public dialog: MatDialog,
      public authService: AuthService) {
   }
-  userData: any
+  userData: any;
+  userKey: string;
   ngOnInit(): void {
     this.getUserData()
   }
@@ -26,7 +26,10 @@ export class ProfilepageComponent implements OnInit {
   getUserData() {
       const email: any = localStorage.getItem('email');
       this.profilePageService.getUserInfo(email).subscribe( res =>{
-        this.router.navigate(['profilepage'])
+        console.log(res);
+        this.userKey = Object.keys(res)[0];
+        this.authService.userKey.next(this.userKey);
+        this.router.navigate(['profilepage']);
         const response: any = res
         const userDataKey: any = Object.keys(response);
         this.userData = response[userDataKey[0]];
@@ -37,7 +40,11 @@ export class ProfilepageComponent implements OnInit {
   }
   
   onEdit(){
-    this.dialog.open(EditdialogComponent);
+    const dialogRef = this.dialog.open(EditdialogComponent);
     this.authService.editUser.next(true);
+    dialogRef.afterClosed().subscribe( res => {
+      console.log('After close', res)
+      this.getUserData();
+    })
   }
 }

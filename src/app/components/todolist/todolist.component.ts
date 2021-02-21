@@ -17,10 +17,12 @@ export class TodolistComponent implements OnInit {
   categories: any = [];
   listFromSearch: any = [];
   searchValueData: any;
+  dialogRef: any
   openDialog() {
     this.dialog.open(TododialogComponent);
-    const dialogRef = this.dialog.open(TododialogComponent)
-    dialogRef.afterClosed().subscribe( res=> {
+    this.dialogRef = this.dialog.open(TododialogComponent)
+    this.dialogRef.afterClosed().subscribe( (res: any)=> {
+      //console.log(res);
       this.getTodoList();
     })
   } 
@@ -35,7 +37,7 @@ export class TodolistComponent implements OnInit {
       const keys = Object.keys(res);
 
       this.list = keys.map( item => data[item]);
-
+      console.log(this.list, data);
     }, error=>{
       console.log('ERROR', error);
     })

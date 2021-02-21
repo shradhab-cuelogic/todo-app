@@ -16,10 +16,17 @@ export class TodoService {
   constructor(public httpClient: HttpClient) { }
 
   createTodoList(todoObj: any) {
-    return this.httpClient.post<TodoList>('https://todo-app-a6fc9-default-rtdb.firebaseio.com/todos.json', todoObj)
+    const email = localStorage.getItem('email');
+    const updatedTodoObj = {...todoObj, email}
+    return this.httpClient.post<TodoList>('https://todo-app-a6fc9-default-rtdb.firebaseio.com/todos.json', updatedTodoObj)
   }
 
   getTodoList() {
-    return this.httpClient.get('https://todo-app-a6fc9-default-rtdb.firebaseio.com/todos.json');
+    const email = localStorage.getItem('email');
+    return this.httpClient.get(`https://todo-app-a6fc9-default-rtdb.firebaseio.com/todos.json?orderBy="email"&equalTo="${email}"`);
+  }
+
+  deleteTodolist(key:string) {
+    return this.httpClient.delete(`https://todo-app-a6fc9-default-rtdb.firebaseio.com/todos/${key}`);
   }
 }

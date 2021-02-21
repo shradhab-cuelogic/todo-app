@@ -29,10 +29,10 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
     this.authService.editUser.subscribe(val=>{
       this.isEdit = val;
-    })
+    });
     this.authService.editUserData.subscribe(val=>{
       this.editUserData = val;
-    })
+    });
     this.updateUser();
   }
 
@@ -41,7 +41,6 @@ export class SignupComponent implements OnInit {
     if (this.isEdit) {
       console.log('form', this.signupForm);
       this.authService.updateUSer(this.signupForm.value).subscribe(res=>{
-        this.profilePage.getUserData();
       },
       error=>{
         console.log(error);
@@ -84,12 +83,12 @@ export class SignupComponent implements OnInit {
   }
   updateUser() {
     this.signupForm.patchValue({
-      fname: this.editUserData.fname,
-      lname: this.editUserData.lname,
-      email: this.editUserData.email,
-      profilePicture: this.editUserData.profilePicture,
-      address: this.editUserData.address,
-      gender: this.editUserData.gender
+      fname: this.editUserData?.fname,
+      lname: this.editUserData?.lname,
+      email: this.editUserData?.email,
+      profilePicture: this.editUserData?.profilePicture,
+      address: this.editUserData?.address,
+      gender: this.editUserData?.gender
     });
   }
 }
