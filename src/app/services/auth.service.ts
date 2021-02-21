@@ -19,7 +19,9 @@ interface User {
 })
 export class AuthService {
 
-  userData = new BehaviorSubject(false);
+  userData = new BehaviorSubject(
+    localStorage.getItem('userToken') ? true : false
+  );
   editUser = new BehaviorSubject(false);
   editUserData = new BehaviorSubject(Object);
   
