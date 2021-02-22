@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms'; 
 import { AuthService } from '../../services/auth.service';
 import { ProfilepageComponent } from '../profilepage/profilepage.component';
@@ -11,7 +11,7 @@ export class SignupComponent implements OnInit {
 
   @ViewChild(ProfilepageComponent) profilePage: ProfilepageComponent 
 
-  constructor(private fb: FormBuilder, private authService: AuthService) { }
+  constructor(private fb: FormBuilder, private authService: AuthService,  private cd: ChangeDetectorRef) { }
   signupForm = this.fb.group({
     email: ['', Validators.required],
     password: ['', Validators.required],
@@ -20,12 +20,14 @@ export class SignupComponent implements OnInit {
     lname: ['', Validators.required],
     address: ['', Validators.required],
     profilePicture: [''],
-    gender: ['']
+    gender: [''],
+    image: [null]
   })
   isLoading = false;
   errorMessage = '';
   isEdit= false;
   editUserData: any;
+  imageUrl: any;
   ngOnInit(): void {
     this.authService.editUser.subscribe(val=>{
       this.isEdit = val;
@@ -46,6 +48,7 @@ export class SignupComponent implements OnInit {
         console.log(error);
       })
     } else {
+      console.log('FROM SIGNUP', this.signupForm.value, this.imageUrl);
       if (this.signupForm.value.password === this.signupForm.value.confirm_password) {
         this.authService.signUp(this.signupForm.value);
         this.isLoading = false;
@@ -90,6 +93,23 @@ export class SignupComponent implements OnInit {
       address: this.editUserData?.address,
       gender: this.editUserData?.gender
     });
+  }
+
+  uploadFile(event: any) {
+    console.log(event);
+    let reader = new FileReader();
+    let file = event.target.files[0];
+    if(event.target.files && event.target.files[0]) {
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.imageUrl = reader.result;
+        console.log(this.imageUrl);
+        this.signupForm.patchValue({
+         profilePicture: reader.result
+        })
+      }
+    }
+    this.cd.markForCheck();
   }
 }
 

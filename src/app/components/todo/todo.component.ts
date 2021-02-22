@@ -1,5 +1,5 @@
 import { Component, createPlatform, OnInit } from '@angular/core';
-import { FormArray, FormBuilder,FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder,FormControl, FormGroup, Validators } from '@angular/forms';
 import { TodoService } from 'src/app/services/todo.service';
 @Component({
   selector: 'app-todo',
@@ -7,21 +7,26 @@ import { TodoService } from 'src/app/services/todo.service';
   styleUrls: ['./todo.component.css']
 })
 export class TodoComponent implements OnInit {
+
   todoForm: FormGroup;
   todoData = [
     { name: 'eat', value: 'Eat' },
     { name: 'sleep', value: 'Sleep' },
-  ]
+  ];
+  isEdit = false;
   constructor(private fb: FormBuilder, private todoService: TodoService) {
-    this.todoForm = this.fb.group({
-      date: [],
-      listOfTodo: new FormArray([]),
-      title: []
-    });
-    this.addCheckboxes();
   }
  
   ngOnInit(): void {
+    this.createTodoForm();
+  }
+  createTodoForm() {
+    this.todoForm = this.fb.group({
+      date: ['', Validators.required],
+      listOfTodo: new FormArray([]),
+      title: ['', Validators.required]
+    });
+    this.addCheckboxes();
   }
  
   get getListArray() {
@@ -35,10 +40,10 @@ export class TodoComponent implements OnInit {
   }
 
   onSubmit() {
-    const value = this.getSelectedCheckboxValue();
-    const todoFormValue = {...this.todoForm.value, listOfTodo: value};
-    console.log(todoFormValue);
-    this.createTodoList(todoFormValue);
+      const value = this.getSelectedCheckboxValue();
+      const todoFormValue = {...this.todoForm.value, listOfTodo: value};
+      console.log(todoFormValue);
+      this.createTodoList(todoFormValue);
   }
 
   getSelectedCheckboxValue() {

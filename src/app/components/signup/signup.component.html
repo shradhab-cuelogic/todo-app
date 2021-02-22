@@ -51,10 +51,19 @@
                 </mat-error>
             </mat-form-field>
            </span>
-            <mat-form-field>
+            <!-- <mat-form-field>
                 <mat-label>Profile Picture</mat-label>
                 <input matInput formControlName="profilePicture">
-            </mat-form-field>
+            </mat-form-field> -->
+           <div class="avatar-upload">
+            <div class="avatar-edit">
+               <span style="margin-right: 65px;"><input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" #fileInput (change)="uploadFile($event)" formControlName="profilePicture"/></span>
+                <div class="avatar-preview avatar-preview-pos">
+                    <img [src]="imageUrl" alt="">      
+                        </div>
+                
+            </div>
+           </div><br>
             <div>
                 <mat-radio-group  name="gender" formControlName="gender">
                     <mat-radio-button value="male">Male</mat-radio-button>&nbsp;&nbsp;&nbsp;

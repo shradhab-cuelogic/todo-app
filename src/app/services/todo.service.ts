@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { v4 as uuidv4 } from 'uuid';
+import { BehaviorSubject } from 'rxjs';
 
 interface TodoList {
   date: string,
@@ -14,7 +15,9 @@ interface TodoList {
 export class TodoService {
 
   constructor(public httpClient: HttpClient) { }
-
+  todoData = new BehaviorSubject({});
+  todoDataId = new BehaviorSubject('');
+  isEdit = new BehaviorSubject(false);
   createTodoList(todoObj: any) {
     const email = localStorage.getItem('email');
     const updatedTodoObj = {...todoObj, email, id: uuidv4()};
@@ -32,7 +35,6 @@ export class TodoService {
   }
 
   getObjToDelete(id: string) {
-    
     return this.httpClient.get(`https://todo-app-a6fc9-default-rtdb.firebaseio.com/todos.json?orderBy="id"&equalTo="${id}"`);
   }
 }
