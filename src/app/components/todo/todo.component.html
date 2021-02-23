@@ -1,27 +1,63 @@
-<mat-card class='cardpos'>
-    <mat-card-title>MY TODO LIST</mat-card-title>
+<mat-card>
+    <mat-grid-list  cols=1 gutterSize=20px rowHeight=10:1>
+        <mat-grid-tile>
+            <mat-card-title>CREATE TODO</mat-card-title>
+        </mat-grid-tile>
+    </mat-grid-list>
     <mat-card-content>
        <form [formGroup]='todoForm' (ngSubmit)='onSubmit()'>
-        <mat-form-field>
-            <mat-label>Title</mat-label>
-            <input matInput formControlName="title">
-                <!-- <mat-error *ngIf="title?.errors?.required">
-                     First Name is Required!
-                </mat-error> -->
-        </mat-form-field><br>
-        <mat-form-field>
-            <input matInput [matDatepicker]='mydatepicker' placeholder="Enter Date" formControlName="date">
-            <mat-datepicker-toggle  [for]='mydatepicker' matSuffix></mat-datepicker-toggle>
-            <mat-datepicker #mydatepicker></mat-datepicker>
-        </mat-form-field>
-
-        <div formArrayName="listOfTodo" *ngFor= 'let item of getListArray.controls; let i=index'>
-            <mat-checkbox [formControlName]="i">
-                {{ todoData[i].name }}
-            </mat-checkbox>
-        </div>
-
-            <button mat-raised-button type="submit" class="btn-style">Add</button>
+        <mat-grid-list cols=1 gutterSize=10px rowHeight=15:1 >
+            <mat-grid-tile>
+                <mat-form-field>
+                    <mat-label>Title</mat-label>
+                    <input matInput formControlName="title">
+                </mat-form-field>
+            </mat-grid-tile>
+        <mat-grid-tile>
+            <mat-form-field>
+                <input matInput [matDatepicker]='mydatepicker' placeholder="Enter Date" formControlName="date">
+                <mat-datepicker-toggle  [for]='mydatepicker' matSuffix></mat-datepicker-toggle>
+                <mat-datepicker #mydatepicker></mat-datepicker>
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <h2 class="example-h2">Remind me!</h2>
+            <section class="example-section">
+              <mat-slide-toggle
+                  class="example-margin"
+                  color="accent"
+                  [checked]="reminderChecked"
+                  (change)="isReminderChecked($event)">
+               </mat-slide-toggle>
+            </section>
+        </mat-grid-tile>
+            <span *ngIf="reminderChecked">
+                <mat-grid-tile>
+                    <mat-form-field>
+                        <input matInput [matDatepicker]='reminderdatepicker' placeholder="Remind me on" >
+                        <mat-datepicker-toggle  [for]='reminderdatepicker' matSuffix></mat-datepicker-toggle>
+                        <mat-datepicker #reminderdatepicker></mat-datepicker>
+                    </mat-form-field>
+                </mat-grid-tile>
+            </span>
+        <mat-grid-tile>
+        <section class="example-section">
+            <label class="example-margin" style="font-weight: 600;">Categories:</label>
+            <div formArrayName="listOfTodo" *ngFor= 'let item of getListArray.controls; let i=index'>
+                <mat-checkbox [formControlName]="i" class="example-margin">
+                    {{ todoData[i].value }}
+                </mat-checkbox>
+            </div>
+          </section>
+        </mat-grid-tile>
+    </mat-grid-list>
+    <mat-grid-list cols=1 gutterSize=20px rowHeight=10:1>
+        <mat-grid-tile>
+            <button mat-raised-button type="submit" class="btn-style" color="primary">Submit</button>
+            <button mat-raised-button type="submit" class="btn-style"  style="margin-left: 21px;" color="accent">Close</button>
+        </mat-grid-tile>
+    </mat-grid-list>
+           
        </form>
     </mat-card-content>
 </mat-card>

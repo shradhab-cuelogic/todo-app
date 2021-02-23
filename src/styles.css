@@ -6,4 +6,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     padding: 0px !important;
     width: 60em !important;
 }
+.todoListClass .mat-dialog-container {
+    padding: 0px !important;
+    width: 60em !important;
+    overflow: hidden !important;
+}
   

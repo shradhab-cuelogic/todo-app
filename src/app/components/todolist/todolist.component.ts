@@ -22,8 +22,8 @@ export class TodolistComponent implements OnInit {
   deletRecordId: string;
   isEditMode = false;
   openDialog() {
-    this.dialog.open(TododialogComponent);
-    this.dialogRef = this.dialog.open(TododialogComponent)
+    this.dialogRef = this.dialog.open(TododialogComponent, {panelClass: "todoListClass"});
+    //this.dialogRef = this.dialog.open(TododialogComponent)
     this.dialogRef.afterClosed().subscribe((res: any) => {
       this.getTodoList();
     })

@@ -12,8 +12,10 @@ export class TodoComponent implements OnInit {
   todoData = [
     { name: 'eat', value: 'Eat' },
     { name: 'sleep', value: 'Sleep' },
+    { name: 'repeat', value: 'Repeat' }
   ];
   isEdit = false;
+  reminderChecked = false;
   constructor(private fb: FormBuilder, private todoService: TodoService) {
   }
  
@@ -54,16 +56,6 @@ export class TodoComponent implements OnInit {
      console.log(selectedName)
      return selectedName;
   }
-  // addTodoList() {
-  //   const arr = this.listOfTodo.map(ele=>{
-  //     return this.fb.control(false);
-  //   })
-  //   return this.fb.array(arr);
-  // }
-
-  // getTodoList() {
-  //   return <FormArray>this.todoForm.get('listOfTodo');
-  // }
 
   createTodoList(todoObj: any) {
     this.todoService.createTodoList(todoObj)
@@ -73,5 +65,10 @@ export class TodoComponent implements OnInit {
       error=> {
         console.log('error from todo', error);
       })
+  }
+
+  isReminderChecked(event: any) {
+    console.log('EVENT FROM TOGGLE', event.checked)
+    this.reminderChecked = event.checked
   }
 }
