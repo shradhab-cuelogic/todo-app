@@ -37,6 +37,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { SearchComponent } from './components/search/search.component';
 import { EditdialogComponent } from './components/editdialog/editdialog.component';
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
+import {MatGridListModule} from '@angular/material/grid-list';
 @NgModule({
   declarations: [
     AppComponent,
@@ -74,6 +75,7 @@ import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.co
     MatListModule,
     MatAutocompleteModule,
     FormsModule,
+    MatGridListModule,
     HttpClientModule
   ],
   providers: [

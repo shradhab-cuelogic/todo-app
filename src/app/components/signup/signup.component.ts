@@ -85,6 +85,7 @@ export class SignupComponent implements OnInit {
     return this.signupForm.get('confirm_password');
   }
   updateUser() {
+    console.log(this.editUserData);
     this.signupForm.patchValue({
       fname: this.editUserData?.fname,
       lname: this.editUserData?.lname,
@@ -105,7 +106,7 @@ export class SignupComponent implements OnInit {
         this.imageUrl = reader.result;
         console.log(this.imageUrl);
         this.signupForm.patchValue({
-         profilePicture: reader.result
+         profilePicture: this.imageUrl
         })
       }
     }

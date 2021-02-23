@@ -1,79 +1,94 @@
-<mat-card class='cardpos'>
-    <mat-card-title>
-       {{ isEdit ? 'Update User' : 'Sign Up' }} 
-    </mat-card-title>
-    <div *ngIf='isLoading'>
+<mat-card class='cardpos mat-card-shadow'>
+  <mat-grid-list cols=1 gutterSize=20px rowHeight=6:1>
+      <mat-grid-tile>
+        <mat-card-title >
+            {{ isEdit ? 'Update User' : 'Sign Up' }}
+        </mat-card-title>
+      </mat-grid-tile>
+  </mat-grid-list>
+    <!-- <div *ngIf='isLoading'>
         <app-loading-spinner></app-loading-spinner>
-    </div>
+    </div> -->
     <mat-card-content *ngIf='!isLoading'>
         <form [formGroup]='signupForm' (ngSubmit)='onSubmit()'>
-            <mat-form-field appearance='legacy'>
-                <mat-label>First Name</mat-label>
-                <input matInput formControlName="fname">
-                <mat-error *ngIf="fname?.errors?.required">
-                    Required Field
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Last Name</mat-label>
-                <input matInput formControlName="lname">
-                <mat-error *ngIf="lname?.errors?.required">
-                    Required Field
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field appearance='legacy'>
-                <mat-label>Address</mat-label>
-                <input matInput formControlName="address">
-                <mat-error *ngIf="address?.errors?.required">
-                    Required Field
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Email</mat-label>
-                <input matInput formControlName="email">
-                <mat-error *ngIf="email?.errors?.required">
-                    Required Field
-                </mat-error>
-            </mat-form-field>
-           <span *ngIf="!isEdit">
-            <mat-form-field>
-                <mat-label>Password</mat-label>
-                <input matInput formControlName="password" type="password">
-                <mat-error *ngIf="password?.errors?.required">
-                    Required Field
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Confirm Password</mat-label>
-                <input matInput formControlName="confirm_password" type="password">
-                <mat-error *ngIf="confirmPassword?.errors?.required">
-                    Required Field
-                </mat-error>
-            </mat-form-field>
-           </span>
-            <!-- <mat-form-field>
-                <mat-label>Profile Picture</mat-label>
-                <input matInput formControlName="profilePicture">
-            </mat-form-field> -->
-           <div class="avatar-upload">
-            <div class="avatar-edit">
-               <span style="margin-right: 65px;"><input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" #fileInput (change)="uploadFile($event)" formControlName="profilePicture"/></span>
-                <div class="avatar-preview avatar-preview-pos">
-                    <img [src]="imageUrl" alt="">      
-                        </div>
-                
-            </div>
-           </div><br>
-            <div>
-                <mat-radio-group  name="gender" formControlName="gender">
-                    <mat-radio-button value="male">Male</mat-radio-button>&nbsp;&nbsp;&nbsp;
-                    <mat-radio-button value="female">Female</mat-radio-button>
-                  </mat-radio-group>
-            </div>
-            <button mat-raised-button type="submit" class="btn-style" >{{ isEdit ? 'Update' : 'Sign Up' }} </button>
-            <button mat-raised-button type="button" style="margin-left: 21px;" (click)="resetForm()">Reset</button>
+            <mat-grid-list cols=2 gutterSize=20px rowHeight=6:1>
+                <mat-grid-tile>
+                    <mat-form-field appearance='legacy'>
+                        <mat-label>First Name</mat-label>
+                        <input matInput formControlName="fname">
+                        <mat-error *ngIf="fname?.errors?.required">
+                            Required Field
+                        </mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field>
+                        <mat-label>Last Name</mat-label>
+                        <input matInput formControlName="lname">
+                        <mat-error *ngIf="lname?.errors?.required">
+                            Required Field
+                        </mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field appearance='legacy'>
+                        <mat-label>Address</mat-label>
+                        <input matInput formControlName="address">
+                        <mat-error *ngIf="address?.errors?.required">
+                            Required Field
+                        </mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field>
+                        <mat-label>Email</mat-label>
+                        <input matInput formControlName="email">
+                        <mat-error *ngIf="email?.errors?.required">
+                            Required Field
+                        </mat-error>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <span *ngIf="!isEdit">
+                    <mat-grid-tile>
+                        <mat-form-field>
+                            <mat-label>Password</mat-label>
+                            <input matInput formControlName="password" type="password">
+                            <mat-error *ngIf="password?.errors?.required">
+                                Required Field
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field>
+                            <mat-label>Confirm Password</mat-label>
+                            <input matInput formControlName="confirm_password" type="password">
+                            <mat-error *ngIf="confirmPassword?.errors?.required">
+                                Required Field
+                            </mat-error>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                </span>
+                <mat-grid-tile>
+                    <span>
+                        <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" #fileInput
+                            (change)="uploadFile($event)" formControlName="profilePicture" />
+                    </span>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <div class="avatar-preview">
+                        <img [src]="imageUrl" alt="">
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+
+         <mat-grid-list cols=1 gutterSize=20px rowHeight=6:1>
+             <mat-grid-tile>
+                <button mat-raised-button type="submit" color="primary">{{ isEdit ? 'Update' : 'Sign Up' }} </button>
+                <button mat-raised-button type="button" style="margin-left: 21px;" (click)="resetForm()" color="accent">Reset</button>
+             </mat-grid-tile>
+         </mat-grid-list>
         </form>
-        
+
     </mat-card-content>
-   
+
 </mat-card>

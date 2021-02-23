@@ -96,3 +96,11 @@
     margin-top: -44px !important;
     height: 100px !important;
   }
+  .mat-card-shadow {
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%) !important;
+  }
+  img {
+    object-fit: cover;
+    width: 300px;
+    height: auto;
+}
