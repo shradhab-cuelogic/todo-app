@@ -104,3 +104,7 @@
     width: 300px;
     height: auto;
 }
+/* mat-dialog-container {
+  padding: 0px !important;
+  width: 60em !important;
+} */

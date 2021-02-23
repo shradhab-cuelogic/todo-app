@@ -19,9 +19,8 @@ export class SignupComponent implements OnInit {
     fname: ['', Validators.required],
     lname: ['', Validators.required],
     address: ['', Validators.required],
-    profilePicture: [''],
+    profilePicture: [null],
     gender: [''],
-    image: [null]
   })
   isLoading = false;
   errorMessage = '';

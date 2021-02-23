@@ -40,7 +40,7 @@ export class ProfilepageComponent implements OnInit {
   }
   
   onEdit(){
-    const dialogRef = this.dialog.open(EditdialogComponent);
+    const dialogRef = this.dialog.open(EditdialogComponent, {panelClass: "foo"});
     this.authService.editUser.next(true);
     dialogRef.afterClosed().subscribe( res => {
       console.log('After close', res)
