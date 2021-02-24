@@ -14,13 +14,6 @@
                 </mat-form-field>
             </mat-grid-tile>
         <mat-grid-tile>
-            <mat-form-field>
-                <input matInput [matDatepicker]='mydatepicker' placeholder="Enter Date" formControlName="date">
-                <mat-datepicker-toggle  [for]='mydatepicker' matSuffix></mat-datepicker-toggle>
-                <mat-datepicker #mydatepicker></mat-datepicker>
-            </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile>
             <h2 class="example-h2">Remind me!</h2>
             <section class="example-section">
               <mat-slide-toggle
@@ -34,7 +27,7 @@
             <span *ngIf="reminderChecked">
                 <mat-grid-tile>
                     <mat-form-field>
-                        <input matInput [matDatepicker]='reminderdatepicker' placeholder="Remind me on" >
+                        <input matInput [min]="min" [matDatepicker]='reminderdatepicker' placeholder="Remind me on" formControlName="reminderDate">
                         <mat-datepicker-toggle  [for]='reminderdatepicker' matSuffix></mat-datepicker-toggle>
                         <mat-datepicker #reminderdatepicker></mat-datepicker>
                     </mat-form-field>

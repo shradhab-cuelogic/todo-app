@@ -35,10 +35,13 @@ export class TodolistComponent implements OnInit {
 
   getTodoList() {
     this.todoListService.getTodoList().subscribe(res => {
+      console.log('From todolist', res)
       this.data = res
+      console.log('From todolist', this.data)
       const keys = Object.keys(res);
 
       this.list = keys.map(item => this.data[item]);
+      console.log('From todolist', this.list)
       this.todoListService.todoData.next(this.data);
     }, error => {
       console.log('ERROR', error);

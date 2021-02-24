@@ -16,6 +16,7 @@ export class TodoComponent implements OnInit {
   ];
   isEdit = false;
   reminderChecked = false;
+  min = new Date();
   constructor(private fb: FormBuilder, private todoService: TodoService) {
   }
  
@@ -24,9 +25,11 @@ export class TodoComponent implements OnInit {
   }
   createTodoForm() {
     this.todoForm = this.fb.group({
-      date: ['', Validators.required],
+      date: [new Date(), Validators.required],
       listOfTodo: new FormArray([]),
-      title: ['', Validators.required]
+      title: ['', Validators.required],
+      reminderDate: [''],
+      isReminder: [false]
     });
     this.addCheckboxes();
   }
@@ -42,6 +45,7 @@ export class TodoComponent implements OnInit {
   }
 
   onSubmit() {
+      //this.getReminderDate(this.todoForm.value.reminderDate);
       const value = this.getSelectedCheckboxValue();
       const todoFormValue = {...this.todoForm.value, listOfTodo: value};
       console.log(todoFormValue);
@@ -69,6 +73,9 @@ export class TodoComponent implements OnInit {
 
   isReminderChecked(event: any) {
     console.log('EVENT FROM TOGGLE', event.checked)
-    this.reminderChecked = event.checked
+    this.reminderChecked = event.checked;
+    this.todoForm.patchValue({
+      isReminder: this.reminderChecked ? true : false
+    })
   }
 }
