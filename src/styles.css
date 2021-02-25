@@ -11,4 +11,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     width: 60em !important;
     overflow: hidden !important;
 }
+.todoEdit .mat-dialog-container {
+    padding: 0px !important;
+    width: 60em !important;
+    overflow: hidden !important;
+}
   

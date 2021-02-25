@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TodoService } from 'src/app/services/todo.service';
 import { TododialogComponent } from '../tododialog/tododialog.component';
-
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
 @Component({
   selector: 'app-todolist',
   templateUrl: './todolist.component.html',
@@ -10,7 +14,7 @@ import { TododialogComponent } from '../tododialog/tododialog.component';
 })
 export class TodolistComponent implements OnInit {
 
-  constructor(public dialog: MatDialog, private todoListService: TodoService) {
+  constructor(public dialog: MatDialog, private todoListService: TodoService, private snackBar: MatSnackBar) {
   }
   test = 'from parent';
   list: any = [];
@@ -21,9 +25,12 @@ export class TodolistComponent implements OnInit {
   data: any;
   deletRecordId: string;
   isEditMode = false;
+  todoItem: any;
+  todoItemId: any;
+ 
   openDialog() {
+    this.todoListService.isEditTodo.next(false);
     this.dialogRef = this.dialog.open(TododialogComponent, {panelClass: "todoListClass"});
-    //this.dialogRef = this.dialog.open(TododialogComponent)
     this.dialogRef.afterClosed().subscribe((res: any) => {
       this.getTodoList();
     })
@@ -35,13 +42,10 @@ export class TodolistComponent implements OnInit {
 
   getTodoList() {
     this.todoListService.getTodoList().subscribe(res => {
-      console.log('From todolist', res)
       this.data = res
-      console.log('From todolist', this.data)
       const keys = Object.keys(res);
-
       this.list = keys.map(item => this.data[item]);
-      console.log('From todolist', this.list)
+      
       this.todoListService.todoData.next(this.data);
     }, error => {
       console.log('ERROR', error);
@@ -49,11 +53,15 @@ export class TodolistComponent implements OnInit {
   }
 
   onEdit(id: string) {
-    // this.isEditMode = true;
-    // this.todoListService.todoDataId.next(id);
-    // this.todoListService.isEdit.next(true);
-    // this.dialog.open(TododialogComponent);
+    console.log(id)
+    this.dialog.open(TododialogComponent, {panelClass: 'todoEdit'});
+    this.todoListService.isEditTodo.next(true);
+    this.todoListService.todoDataId.next(id);
+    this.dialogRef.afterClosed().subscribe((res: any) => {
+      this.getTodoList();
+    })
   }
+
   searchValue() {
     if (this.searchValueData === '') {
       this.ngOnInit();
@@ -68,13 +76,29 @@ export class TodolistComponent implements OnInit {
     this.todoListService.getObjToDelete(id).subscribe(res => {
       this.deletRecordId = Object.keys(res)[0];
       this.todoListService.deleteTodolist(this.deletRecordId).subscribe(res => {
+        this.openSnackBar()
         this.getTodoList();
       },
         error => {
           console.log('ERROR', error);
         })
     })
-
+   
   }
+
+  openSnackBar() {
+    const horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+    const verticalPosition: MatSnackBarVerticalPosition = 'top';
+
+    this.snackBar.open('Item Deleted', 'End Now', {
+      duration: 500,
+      horizontalPosition: horizontalPosition,
+      verticalPosition: verticalPosition
+    })
+  }
+
+  // getTodoInfo() {
+
+  // }
 }
 

@@ -77,9 +77,7 @@ export class AuthService {
     let key = '';
     this.userKey.subscribe(res=>{
        key = res
-    })
-    // const email = localStorage.getItem('email');
-    // const updatedObj = {...userObj, email} 
+    }) 
     return this.http.put(`https://todo-app-a6fc9-default-rtdb.firebaseio.com/users/${key}.json`, {
       ...userObj
     })

@@ -17,10 +17,12 @@ export class TodoService {
   constructor(public httpClient: HttpClient) { }
   todoData = new BehaviorSubject({});
   todoDataId = new BehaviorSubject('');
-  isEdit = new BehaviorSubject(false);
+  isEditTodo = new BehaviorSubject(false);
+
   createTodoList(todoObj: any) {
     const email = localStorage.getItem('email');
     const updatedTodoObj = {...todoObj, email, id: uuidv4()};
+    console.log('From create', updatedTodoObj)
     return this.httpClient.post<TodoList>('https://todo-app-a6fc9-default-rtdb.firebaseio.com/todos.json', updatedTodoObj)
   }
 
@@ -36,5 +38,14 @@ export class TodoService {
 
   getObjToDelete(id: string) {
     return this.httpClient.get(`https://todo-app-a6fc9-default-rtdb.firebaseio.com/todos.json?orderBy="id"&equalTo="${id}"`);
+  }
+
+  getTodoObj(id: string) {
+    return this.httpClient.get(`https://todo-app-a6fc9-default-rtdb.firebaseio.com/todos.json?orderBy="id"&equalTo="${id}"`);
+  }
+
+  updateTodoItem(updatedObj: any, key: string) {
+    console.log('From update', updatedObj);
+   return this.httpClient.put(`https://todo-app-a6fc9-default-rtdb.firebaseio.com/todos/${key}.json`, {...updatedObj})
   }
 }

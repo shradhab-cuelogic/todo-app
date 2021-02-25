@@ -34,7 +34,9 @@ export class SignupComponent implements OnInit {
     this.authService.editUserData.subscribe(val=>{
       this.editUserData = val;
     });
-    this.updateUser();
+    if(this.isEdit) {
+      this.updateUser();
+    }
   }
 
 
