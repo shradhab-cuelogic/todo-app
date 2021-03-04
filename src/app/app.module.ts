@@ -39,6 +39,9 @@ import { SearchComponent } from './components/search/search.component';
 import { EditdialogComponent } from './components/editdialog/editdialog.component';
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { ContactComponent } from './app/components/contact/contact.component';
+import { AuthGuard } from './services/authGaurd';
+import { TestingAuthComponent } from './app/components/testing-auth/testing-auth.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +56,9 @@ import {MatGridListModule} from '@angular/material/grid-list';
     TododialogComponent,
     SearchComponent,
     EditdialogComponent,
-    PagenotfoundComponent
+    PagenotfoundComponent,
+    ContactComponent,
+    TestingAuthComponent
   ],
   entryComponents: [TododialogComponent],
   imports: [
@@ -82,7 +87,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MatSlideToggleModule,
   ],
   providers: [
-    AuthService
+    AuthService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

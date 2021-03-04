@@ -4,12 +4,16 @@
         <span *ngIf="!isAuthenticated">
             <span routerLink="signup">SignUp </span>
             <span routerLink="signin">SignIn</span>
+            <span routerLink="testing">Testing Auth</span>
         </span>
             <span *ngIf="isAuthenticated">
                 <span routerLink="profilepage">Profile Page</span>
             </span>
             <span *ngIf="isAuthenticated">
                 <span routerLink="profilepage" (click)="logout()">LogOut</span>
+            </span>
+            <span *ngIf="isAuthenticated">
+                <span routerLink="contact">Contact</span>
             </span>
     </div>
   </mat-toolbar>
