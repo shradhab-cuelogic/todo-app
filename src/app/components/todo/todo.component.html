@@ -19,12 +19,12 @@
               <mat-slide-toggle
                   class="example-margin"
                   color="accent"
-                  [checked]="isEdit ? this.formData[0]?.isReminder : reminderChecked"
+                  [checked]="isEdit ? isReminder : reminderChecked"
                   (change)="isReminderChecked($event)">
                </mat-slide-toggle>
             </section>
         </mat-grid-tile>
-            <span *ngIf="isEdit ? this.formData[0]?.isReminder : reminderChecked">
+            <span *ngIf="isEdit ? isReminder : reminderChecked">
                 <mat-grid-tile>
                     <mat-form-field>
                         <input matInput [min]="min" [matDatepicker]='reminderdatepicker' placeholder="Remind me on" formControlName="reminderDate">
@@ -47,7 +47,7 @@
     <mat-grid-list cols=1 gutterSize=20px rowHeight=10:1>
         <mat-grid-tile>
             <button mat-raised-button type="submit" class="btn-style" color="primary">{{ isEdit ? 'Update' : 'Submit' }}</button>
-            <button mat-raised-button type="submit" class="btn-style"  style="margin-left: 21px;" color="accent">Close</button>
+            <button mat-raised-button type="button" class="btn-style"  style="margin-left: 21px;" color="accent" (click)="onClose()">Close</button>
         </mat-grid-tile>
     </mat-grid-list>
            

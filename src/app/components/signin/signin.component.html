@@ -1,26 +1,45 @@
-<mat-card class='cardpos'>
-    <mat-card-title>
-        Sign In
-    </mat-card-title>
+<mat-grid-list *ngIf="isLoading" cols=1 gutterSize=20px rowHeight=10:1> 
+    <mat-grid-tile>
+      <app-loading-spinner></app-loading-spinner>
+    </mat-grid-tile>
+  </mat-grid-list>
+<mat-card *ngIf="!isLoading" class='cardpos' style="box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%) !important;">
+    <mat-grid-list cols=1 gutterSize=20px rowHeight=6:1>
+        <mat-grid-tile>
+            <mat-card-title>
+                Sign In
+            </mat-card-title>
+        </mat-grid-tile>
+    </mat-grid-list>
+
     <mat-card-content>
      <form [formGroup]='signinForm' (ngSubmit)='onSubmit()'>
-        <mat-form-field>
-            <mat-label>Email</mat-label>
-            <input matInput formControlName="email">
-                <mat-error *ngIf="email?.errors?.required">
-                     First Name is Required!
-                </mat-error>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Password</mat-label>
-            <input matInput formControlName="password" type="password">
-                <mat-error *ngIf="password?.errors?.required">
-                    Password is Required!
-                </mat-error>
-        </mat-form-field>
-        <br>
-        <button mat-raised-button type="submit" [disabled]="!signinForm.valid">Sign In</button>
-        <button mat-raised-button type="button" style="margin-left: 21px;" (click)="resetForm()">Reset</button>
+        <mat-grid-list cols="2" gutterSize="20px" rowHeight="6:1">
+            <mat-grid-tile>
+                <mat-form-field>
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email">
+                        <mat-error *ngIf="email?.errors?.required">
+                             First Name is Required!
+                        </mat-error>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field>
+                    <mat-label>Password</mat-label>
+                    <input matInput formControlName="password" type="password">
+                        <mat-error *ngIf="password?.errors?.required">
+                            Password is Required!
+                        </mat-error>
+                </mat-form-field>
+            </mat-grid-tile>
+        </mat-grid-list>
+      <mat-grid-list cols=1 gutterSize=20px rowHeight=6:1>
+          <mat-grid-tile>
+            <button mat-raised-button type="submit" [disabled]="!signinForm.valid" color="primary">Sign In</button>
+            <button mat-raised-button type="button" style="margin-left: 21px;" (click)="resetForm()" color="accent">Reset</button>
+          </mat-grid-tile>
+      </mat-grid-list>
     </form>
         
     </mat-card-content>

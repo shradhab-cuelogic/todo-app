@@ -14,27 +14,31 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
   @ViewChild(SigninComponent) userData: SigninComponent;
   @ViewChild(SignupComponent) signUp: SignupComponent;
-  constructor( private authService: AuthService, private router: Router) { }
+
+  constructor(private authService: AuthService, private router: Router) { }
+
   userSub: Subscription;
   isAuthenticated: boolean = false;
+
   ngOnInit(): void {
     this.userSub = this.authService.userData.subscribe(authFlag => {
       this.isAuthenticated = authFlag;
     });
   }
+
   ngAfterViewInit() {
-    // this.isAuthenticated = this.userData.isAuthenticated;
-    // console.log('this.isAuth', this.isAuthenticated);
   }
+
   ngOnDestroy() {
     this.userSub.unsubscribe();
   }
+
   logout() {
     this.authService.userData.next(false);
     localStorage.clear();
-    //this.signUp.resetForm();
     this.router.navigate(['signin'])
   }
+
   navigateDashboard() {
     this.router.navigate(['tododashboard'])
   }

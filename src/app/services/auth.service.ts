@@ -25,6 +25,7 @@ export class AuthService {
   editUser = new BehaviorSubject(false);
   editUserData = new BehaviorSubject(Object);
   userKey = new BehaviorSubject('');
+  onClose = new BehaviorSubject(false);
   constructor(
     public afAuth: AngularFireAuth, //inject firebase auth service
     public router: Router,
@@ -39,7 +40,8 @@ export class AuthService {
       delete userObj.password;
       delete userObj.confirm_password;
 
-      this.createUser(userObj);
+      const response = this.createUser(userObj);
+      console.log('response', response);
       this.router.navigate(['signin']);
     } ) 
     .catch( error=> {
@@ -56,7 +58,6 @@ export class AuthService {
   }
 
   createUser(userObj: Object) {
-    // return this.http.post<User>('https://todo-app-a6fc9-default-rtdb.firebaseio.com/users.json', {userObj})
     fetch('https://todo-app-a6fc9-default-rtdb.firebaseio.com/users.json', {
       method: 'POST',
       headers: {
@@ -68,7 +69,8 @@ export class AuthService {
      return res.json();
     })
     .then(res => {
-      console.log('res', res)
+      return res;
+     // console.log('res', res)
     })
     .catch()
   }

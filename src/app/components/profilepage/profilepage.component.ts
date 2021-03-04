@@ -19,6 +19,8 @@ export class ProfilepageComponent implements OnInit {
   }
   userData: any;
   userKey: string;
+  isLoading: boolean =  true;
+  dialogRef: any;
   ngOnInit(): void {
     this.getUserData()
   }
@@ -26,7 +28,7 @@ export class ProfilepageComponent implements OnInit {
   getUserData() {
       const email: any = localStorage.getItem('email');
       this.profilePageService.getUserInfo(email).subscribe( res =>{
-        console.log(res);
+        this.isLoading = false;
         this.userKey = Object.keys(res)[0];
         this.authService.userKey.next(this.userKey);
         this.router.navigate(['profilepage']);
@@ -40,11 +42,16 @@ export class ProfilepageComponent implements OnInit {
   }
   
   onEdit(){
-    const dialogRef = this.dialog.open(EditdialogComponent, {panelClass: "foo"});
+    this.dialogRef = this.dialog.open(EditdialogComponent, {panelClass: "foo"});
     this.authService.editUser.next(true);
-    dialogRef.afterClosed().subscribe( res => {
+    this.dialogRef.afterClosed().subscribe( (res: any) => {
       console.log('After close', res)
       this.getUserData();
     })
+  }
+
+  onClose() {
+   // this.dialogRef.close();
+    this.dialog.closeAll()
   }
 }

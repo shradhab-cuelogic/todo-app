@@ -1,15 +1,16 @@
-<mat-card [ngClass]="isEdit ? '' : 'cardpos'" style="box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%) !important;">
+<mat-grid-list *ngIf="isLoading" cols=1 gutterSize=20px rowHeight=10:1> 
+    <mat-grid-tile>
+      <app-loading-spinner></app-loading-spinner>
+    </mat-grid-tile>
+  </mat-grid-list>
+<mat-card *ngIf="!isLoading" [ngClass]="isEdit ? '' : 'cardpos'" style="box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%) !important;">
   <mat-grid-list cols=1 gutterSize=20px rowHeight=6:1>
       <mat-grid-tile>
         <mat-card-title >
             {{ isEdit ? 'Update User' : 'Sign Up' }}
-            {{isEdit}}
         </mat-card-title>
       </mat-grid-tile>
   </mat-grid-list>
-    <!-- <div *ngIf='isLoading'>
-        <app-loading-spinner></app-loading-spinner>
-    </div> -->
     <mat-card-content *ngIf='!isLoading'>
         <form [formGroup]='signupForm' (ngSubmit)='onSubmit()'>
             <mat-grid-list cols=2 gutterSize=20px rowHeight=6:1>

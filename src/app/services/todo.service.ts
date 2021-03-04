@@ -7,7 +7,7 @@ interface TodoList {
   date: string,
   categories: [],
   isDone: boolean,
-  isPending: boolean 
+  isPending: boolean
 }
 @Injectable({
   providedIn: 'root'
@@ -18,11 +18,11 @@ export class TodoService {
   todoData = new BehaviorSubject({});
   todoDataId = new BehaviorSubject('');
   isEditTodo = new BehaviorSubject(false);
+  // dialogRefFromService = new BehaviorSubject();
 
   createTodoList(todoObj: any) {
     const email = localStorage.getItem('email');
-    const updatedTodoObj = {...todoObj, email, id: uuidv4()};
-    console.log('From create', updatedTodoObj)
+    const updatedTodoObj = { ...todoObj, email, id: uuidv4() };
     return this.httpClient.post<TodoList>('https://todo-app-a6fc9-default-rtdb.firebaseio.com/todos.json', updatedTodoObj)
   }
 
@@ -31,8 +31,7 @@ export class TodoService {
     return this.httpClient.get(`https://todo-app-a6fc9-default-rtdb.firebaseio.com/todos.json?orderBy="email"&equalTo="${email}"`);
   }
 
-  deleteTodolist(key:string) {
-    console.log('KEY FROM DELETE',key)
+  deleteTodolist(key: string) {
     return this.httpClient.delete(`https://todo-app-a6fc9-default-rtdb.firebaseio.com/todos/${key}.json`);
   }
 
@@ -45,7 +44,6 @@ export class TodoService {
   }
 
   updateTodoItem(updatedObj: any, key: string) {
-    console.log('From update', updatedObj);
-   return this.httpClient.put(`https://todo-app-a6fc9-default-rtdb.firebaseio.com/todos/${key}.json`, {...updatedObj})
+    return this.httpClient.put(`https://todo-app-a6fc9-default-rtdb.firebaseio.com/todos/${key}.json`, { ...updatedObj })
   }
 }

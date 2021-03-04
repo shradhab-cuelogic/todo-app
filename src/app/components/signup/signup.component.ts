@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms'; 
 import { AuthService } from '../../services/auth.service';
 import { ProfilepageComponent } from '../profilepage/profilepage.component';
@@ -9,7 +9,7 @@ import { ProfilepageComponent } from '../profilepage/profilepage.component';
 })
 export class SignupComponent implements OnInit {
 
-  @ViewChild(ProfilepageComponent) profilePage: ProfilepageComponent 
+  @ViewChild(ProfilepageComponent, {static: false}) profilePage: ProfilepageComponent 
 
   constructor(private fb: FormBuilder, private authService: AuthService,  private cd: ChangeDetectorRef) { }
   signupForm = this.fb.group({
@@ -22,11 +22,12 @@ export class SignupComponent implements OnInit {
     profilePicture: [null],
     gender: [''],
   })
-  isLoading = false;
   errorMessage = '';
   isEdit= false;
   editUserData: any;
   imageUrl: any;
+  isLoading = false;
+  
   ngOnInit(): void {
     this.authService.editUser.subscribe(val=>{
       this.isEdit = val;
@@ -39,11 +40,12 @@ export class SignupComponent implements OnInit {
     }
   }
 
-
   onSubmit() {
+    this.isLoading = true; 
     if (this.isEdit) {
       console.log('form', this.signupForm);
       this.authService.updateUSer(this.signupForm.value).subscribe(res=>{
+        this.isLoading = false;
       },
       error=>{
         console.log(error);
@@ -52,10 +54,12 @@ export class SignupComponent implements OnInit {
       console.log('FROM SIGNUP', this.signupForm.value, this.imageUrl);
       if (this.signupForm.value.password === this.signupForm.value.confirm_password) {
         this.authService.signUp(this.signupForm.value);
-        this.isLoading = false;
         this.resetForm();
       }
     }
+  }
+  onDialogclose() {
+    this.profilePage.onClose();
   }
 
   resetForm() {

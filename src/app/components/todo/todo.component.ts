@@ -10,11 +10,11 @@ import {
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
-  styleUrls: ['./todo.component.css']
+  styleUrls: ['./todo.component.css'],
+  providers: [TodolistComponent]
 })
 export class TodoComponent implements OnInit, AfterViewInit {
 
-  @ViewChild(TodolistComponent, { static: true }) todolistComponentObj: TodolistComponent;
   todoForm: FormGroup;
   todoData = [
     { name: 'eat', value: 'Eat' },
@@ -26,8 +26,13 @@ export class TodoComponent implements OnInit, AfterViewInit {
   min = new Date();
   todoItemId = '';
   tempObj: any;
-  formData:any;
-  constructor(private fb: FormBuilder, private todoService: TodoService, private snackBar: MatSnackBar) {
+  formData: any;
+  isReminder: any;
+
+  constructor(private fb: FormBuilder,
+     private todoService: TodoService,
+     private snackBar: MatSnackBar,
+     private todolistComponentObj: TodolistComponent) {
   }
 
   ngOnInit(): void {
@@ -42,8 +47,9 @@ export class TodoComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.todolistComponentObj?.getTodoList();
+    this.todolistComponentObj.getTodoList();
   }
+
   createTodoForm() {
     this.todoForm = this.fb.group({
       date: [new Date(), Validators.required],
@@ -67,15 +73,16 @@ export class TodoComponent implements OnInit, AfterViewInit {
 
   onSubmit() {
     //this.getReminderDate(this.todoForm.value.reminderDate);
-    if(this.isEdit) {
-      this.todoService.todoDataId.subscribe(itemId=>{
+    if (this.isEdit) {
+      this.todoService.todoDataId.subscribe(itemId => {
         this.todoService.getTodoObj(itemId).subscribe((res: any) => {
           const itemId = Object.keys(res)[0];
           console.log(res[itemId])
           const categoryValue = this.getSelectedCheckboxValue();
-            this.todoService.updateTodoItem({ ...res[itemId], ...this.todoForm.value, listOfTodo: categoryValue}, itemId)
-            .subscribe(res=>{
+          this.todoService.updateTodoItem({ ...res[itemId], ...this.todoForm.value, listOfTodo: categoryValue }, itemId)
+            .subscribe(res => {
               this.openSnackBar();
+              this.ngAfterViewInit();
             });
         })
       })
@@ -86,7 +93,7 @@ export class TodoComponent implements OnInit, AfterViewInit {
       console.log(todoFormValue);
       this.createTodoList(todoFormValue);
     }
-   
+
   }
 
   getSelectedCheckboxValue() {
@@ -125,23 +132,23 @@ export class TodoComponent implements OnInit, AfterViewInit {
       this.tempObj = res
       const key = Object.keys(this.tempObj);
       this.formData = key.map(item => this.tempObj[item]);
+      this.isReminder = this.formData[0].isReminder;
       console.log(this.formData)
       this.todoForm.patchValue({
-        title:  this.formData[0]?.title,
-        isReminder:  this.formData[0]?.isReminder,
-        listOfTodo:  this.formData[0]?.listOfTodo,
-        reminderDate:  this.formData[0]?.reminderDate
+        title: this.formData[0]?.title,
+        isReminder: this.formData[0]?.isReminder,
+        listOfTodo: this.formData[0]?.listOfTodo,
+        reminderDate: this.formData[0]?.reminderDate
       })
     })
     console.log(this.todoForm.value)
 
   }
-  
+
   resetForm() {
     this.todoForm.reset();
   }
 
-  
   openSnackBar() {
     const horizontalPosition: MatSnackBarHorizontalPosition = 'center';
     const verticalPosition: MatSnackBarVerticalPosition = 'top';
@@ -152,4 +159,10 @@ export class TodoComponent implements OnInit, AfterViewInit {
       verticalPosition: verticalPosition
     })
   }
+
+  onClose() {
+    console.log('From Close');
+
+  }
+
 }

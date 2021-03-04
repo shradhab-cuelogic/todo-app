@@ -1,10 +1,16 @@
-<mat-card class="example-card" style="box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%) !important; margin-top: 60px;">
+<mat-grid-list *ngIf="isLoading" cols=1 gutterSize=20px rowHeight=10:1> 
+  <mat-grid-tile>
+    <app-loading-spinner></app-loading-spinner>
+  </mat-grid-tile>
+</mat-grid-list>
+<div *ngIf="!isLoading">
+  <mat-card class="example-card" style="box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%) !important; margin-top: 60px;">
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
       <mat-card-title>{{userData?.fname}}</mat-card-title>
       <mat-card-subtitle>{{ userData?.lname }}</mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image [src]="userData?.profilePicture" alt="Photo of a Shiba Inu">
+    <img mat-card-image [src]="userData?.profilePicture" alt="Photo of a Shiba Inu" class="img-height">
     <mat-card-content>
       <span style="font-weight: 600;">Email Id: &nbsp;</span>{{ userData?.email }}<br>
       <span style="font-weight: 600;">Address: &nbsp;</span>{{ userData?.address }}<br>
@@ -15,6 +21,7 @@
       <!-- <button mat-stroked-button color="accent" (click)="onDelete()">Delete</button> -->
     </mat-card-actions>
   </mat-card>
+</div>
 
 
   

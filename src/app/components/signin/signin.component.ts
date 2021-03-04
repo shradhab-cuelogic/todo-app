@@ -17,10 +17,12 @@ export class SigninComponent implements OnInit {
   });
   userToken: any;
   isAuthenticated = false;
-  testMessage: string = 'Helloo'
+  isLoading = false;
+  errorMessage = '';
   ngOnInit(): void {
   }
   onSubmit() {
+    this.isLoading = true;
     const email = this.signinForm.value.email;
     const password = this.signinForm.value.password;
     this.logInUSer(email,password); 
@@ -38,6 +40,7 @@ export class SigninComponent implements OnInit {
 
   logInUSer(email: string, password: string) {
     this.authService.signIn(email, password).subscribe(res=>{
+      this.isLoading = false;
       this.isAuthenticated = true;
       this.authService.userData.next(this.isAuthenticated);
       const userData: any = res;
@@ -48,7 +51,9 @@ export class SigninComponent implements OnInit {
       localStorage.setItem('email', email);
       this.router.navigate(['tododashboard']);
     }, error=>{
-      console.log('ERROR', error);
+      this.isLoading = false;
+      //this.errorMessage = error.error
+      console.log('ERROR', error.error.error.errors[0].message);
     })
   }
 }

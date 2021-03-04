@@ -39,6 +39,7 @@ import { SearchComponent } from './components/search/search.component';
 import { EditdialogComponent } from './components/editdialog/editdialog.component';
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 import {MatGridListModule} from '@angular/material/grid-list';
+
 @NgModule({
   declarations: [
     AppComponent,

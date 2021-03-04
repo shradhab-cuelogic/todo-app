@@ -16,7 +16,7 @@ export class TodolistComponent implements OnInit {
 
   constructor(public dialog: MatDialog, private todoListService: TodoService, private snackBar: MatSnackBar) {
   }
-  test = 'from parent';
+
   list: any = [];
   categories: any = [];
   listFromSearch: any = [];
@@ -53,13 +53,12 @@ export class TodolistComponent implements OnInit {
   }
 
   onEdit(id: string) {
-    console.log(id)
     this.dialog.open(TododialogComponent, {panelClass: 'todoEdit'});
     this.todoListService.isEditTodo.next(true);
     this.todoListService.todoDataId.next(id);
-    this.dialogRef.afterClosed().subscribe((res: any) => {
-      this.getTodoList();
-    })
+    // this.dialogRef.afterClosed().subscribe((res: any) => {
+    //   this.getTodoList();
+    // });
   }
 
   searchValue() {
@@ -97,8 +96,5 @@ export class TodolistComponent implements OnInit {
     })
   }
 
-  // getTodoInfo() {
-
-  // }
 }
 
