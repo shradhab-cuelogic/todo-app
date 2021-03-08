@@ -13,7 +13,7 @@ import { AuthGuard } from './services/authGaurd';
 const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'signin', component: SigninComponent },
-  { path: 'profilepage', component: ProfilepageComponent, canActivate: [ AuthGuard ]  },
+  { path: 'profilepage/:id', component: ProfilepageComponent, canActivate: [ AuthGuard ]  },
   { path: 'todo', component: TodoComponent  },
   { path: 'tododashboard', component: TodolistComponent },
   { path: 'contact', component: ContactComponent, canActivate: [ AuthGuard ]  },

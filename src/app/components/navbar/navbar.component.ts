@@ -1,4 +1,4 @@
-import { ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, DoCheck, OnChanges } from '@angular/core';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { SigninComponent } from '../signin/signin.component';
@@ -10,27 +10,34 @@ import { SignupComponent } from '../signup/signup.component';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit, AfterViewInit {
+export class NavbarComponent implements OnInit, DoCheck, AfterViewInit {
 
-  @ViewChild(SigninComponent) userData: SigninComponent;
+ // @ViewChild(SigninComponent) userData: SigninComponent;
   @ViewChild(SignupComponent) signUp: SignupComponent;
 
   constructor(private authService: AuthService, private router: Router) { }
 
   userSub: Subscription;
   isAuthenticated: boolean = false;
+  userData: any;
+  userId: string;
 
   ngOnInit(): void {
     this.userSub = this.authService.userData.subscribe(authFlag => {
       this.isAuthenticated = authFlag;
     });
+    
   }
 
   ngAfterViewInit() {
+    this.authService.editUserData.subscribe(data => {
+      this.userData = data;
+    })
   }
 
-  ngOnDestroy() {
-    this.userSub.unsubscribe();
+  ngDoCheck() {
+    console.log('this.userData', this.userData);
+    this.userId = this.userData?.id;
   }
 
   logout() {
@@ -41,5 +48,9 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
   navigateDashboard() {
     this.router.navigate(['tododashboard'])
+  }
+
+  fetchUserData() {
+    this.router.navigate(['profilepage', this.userId]);
   }
 }

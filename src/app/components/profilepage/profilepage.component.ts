@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProfilepageService } from 'src/app/services/profilepage.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import { EditdialogComponent } from '../editdialog/editdialog.component';
 import { AuthService } from 'src/app/services/auth.service';
@@ -15,7 +15,8 @@ export class ProfilepageComponent implements OnInit {
   constructor(public profilePageService: ProfilepageService,
      private router: Router, 
      public dialog: MatDialog,
-     public authService: AuthService) {
+     public authService: AuthService,
+     private routeParam: ActivatedRoute) {
   }
   userData: any;
   userKey: string;
@@ -23,15 +24,17 @@ export class ProfilepageComponent implements OnInit {
   dialogRef: any;
   ngOnInit(): void {
     this.getUserData()
+    console.log(this.routeParam.snapshot)
   }
 
   getUserData() {
       const email: any = localStorage.getItem('email');
       this.profilePageService.getUserInfo(email).subscribe( res =>{
+        console.log('res from profile', res);
         this.isLoading = false;
         this.userKey = Object.keys(res)[0];
         this.authService.userKey.next(this.userKey);
-        this.router.navigate(['profilepage']);
+        //this.router.navigate(['profilepage']);
         const response: any = res
         const userDataKey: any = Object.keys(response);
         this.userData = response[userDataKey[0]];

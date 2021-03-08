@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { HttpClient } from '@angular/common/http';
-
+import { v4 as uuidv4 } from 'uuid';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subject } from 'rxjs';
 
@@ -40,7 +40,8 @@ export class AuthService {
       delete userObj.password;
       delete userObj.confirm_password;
 
-      const response = this.createUser(userObj);
+      const response: any = this.createUser(userObj);
+      this.editUserData.next(response);
       console.log('response', response);
       this.router.navigate(['signin']);
     } ) 
@@ -58,12 +59,13 @@ export class AuthService {
   }
 
   createUser(userObj: Object) {
+    const updatedObj = { ...userObj, id: uuidv4()}
     fetch('https://todo-app-a6fc9-default-rtdb.firebaseio.com/users.json', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(userObj)
+      body: JSON.stringify(updatedObj)
     })
     .then( res=> {
      return res.json();

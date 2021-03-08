@@ -7,13 +7,13 @@
             <span routerLink="testing">Testing Auth</span>
         </span>
             <span *ngIf="isAuthenticated">
-                <span routerLink="profilepage">Profile Page</span>
+                <span routerLink="profilepage" (click)="fetchUserData()">Profile Page</span>
             </span>
             <span *ngIf="isAuthenticated">
-                <span routerLink="profilepage" (click)="logout()">LogOut</span>
+                <span (click)="logout()">LogOut</span>
             </span>
-            <span *ngIf="isAuthenticated">
+            <!-- <span *ngIf="isAuthenticated">
                 <span routerLink="contact">Contact</span>
-            </span>
+            </span> -->
     </div>
   </mat-toolbar>
