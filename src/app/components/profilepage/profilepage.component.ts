@@ -34,11 +34,12 @@ export class ProfilepageComponent implements OnInit {
         this.isLoading = false;
         this.userKey = Object.keys(res)[0];
         this.authService.userKey.next(this.userKey);
-        //this.router.navigate(['profilepage']);
         const response: any = res
         const userDataKey: any = Object.keys(response);
         this.userData = response[userDataKey[0]];
         this.authService.editUserData.next(this.userData);
+        console.log(this.userData);
+        //localStorage.setItem('userdata', JSON.stringify(this.userData))
       }, error=>{
         console.log('error', error);
       })  

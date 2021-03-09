@@ -5,39 +5,27 @@ import { SigninComponent } from '../signin/signin.component';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { SignupComponent } from '../signup/signup.component';
+import { ProfilepageService } from 'src/app/services/profilepage.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit, DoCheck, AfterViewInit {
+export class NavbarComponent implements OnInit {
 
- // @ViewChild(SigninComponent) userData: SigninComponent;
   @ViewChild(SignupComponent) signUp: SignupComponent;
 
-  constructor(private authService: AuthService, private router: Router) { }
-
+  constructor(private authService: AuthService, private router: Router, private profilePageService: ProfilepageService) { }
   userSub: Subscription;
   isAuthenticated: boolean = false;
   userData: any;
-  userId: string;
+  userId: any;
 
   ngOnInit(): void {
     this.userSub = this.authService.userData.subscribe(authFlag => {
       this.isAuthenticated = authFlag;
     });
-    
-  }
 
-  ngAfterViewInit() {
-    this.authService.editUserData.subscribe(data => {
-      this.userData = data;
-    })
-  }
-
-  ngDoCheck() {
-    console.log('this.userData', this.userData);
-    this.userId = this.userData?.id;
   }
 
   logout() {
@@ -51,6 +39,9 @@ export class NavbarComponent implements OnInit, DoCheck, AfterViewInit {
   }
 
   fetchUserData() {
+    // const data: any = localStorage.getItem('userData');
+    // Object.keys(data);
+    this.userId = localStorage.getItem('userId')
     this.router.navigate(['profilepage', this.userId]);
   }
 }

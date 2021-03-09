@@ -11,7 +11,6 @@ export class ProfilepageService {
   // https://dinosaur-facts.firebaseio.com/dinosaurs.json?orderBy="height"&startAt=3&print=pretty
 
   getUserInfo(email:string) {
-    console.log('email', email);
     return this.httpClient
     .get(`https://todo-app-a6fc9-default-rtdb.firebaseio.com/users.json?orderBy="email"&equalTo="${email}"`)
   }

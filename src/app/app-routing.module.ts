@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'signin', component: SigninComponent },
   { path: 'profilepage/:id', component: ProfilepageComponent, canActivate: [ AuthGuard ]  },
   { path: 'todo', component: TodoComponent  },
-  { path: 'tododashboard', component: TodolistComponent },
+  { path: 'tododashboard', component: TodolistComponent, canActivate: [ AuthGuard ]  },
   { path: 'contact', component: ContactComponent, canActivate: [ AuthGuard ]  },
   { path: 'testing', component: TestingAuthComponent, canActivate: [ AuthGuard ] },
   { path: '**', component: PagenotfoundComponent}

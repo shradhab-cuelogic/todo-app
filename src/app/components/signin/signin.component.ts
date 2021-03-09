@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { ProfilepageService } from 'src/app/services/profilepage.service';
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
@@ -10,7 +11,10 @@ import { Observable } from 'rxjs';
 })
 export class SigninComponent implements OnInit {
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) { }
+  constructor(private fb: FormBuilder, 
+    private authService: AuthService,
+    private router: Router,
+    private profilePageService: ProfilepageService) { }
   signinForm = this.fb.group({
     email: ['', Validators.required],
     password: ['', Validators.required]
@@ -45,8 +49,8 @@ export class SigninComponent implements OnInit {
       this.authService.userData.next(this.isAuthenticated);
       const userData: any = res;
       const email = userData.email;
+      this.getUserData(email);
       this.userToken = userData.idToken
-
       localStorage.setItem('userToken', this.userToken)
       localStorage.setItem('email', email);
       this.router.navigate(['tododashboard']);
@@ -54,6 +58,15 @@ export class SigninComponent implements OnInit {
       this.isLoading = false;
       //this.errorMessage = error.error
       console.log('ERROR', error.error.error.errors[0].message);
+    })
+  }
+
+  getUserData(email: string) {
+    this.profilePageService.getUserInfo(email).subscribe(res=>{
+      const data: any = res
+      const keys = Object.keys(data);
+      const list = keys.map(item=>{ return data[item] })
+      localStorage.setItem('userId', list[0].id)
     })
   }
 }
