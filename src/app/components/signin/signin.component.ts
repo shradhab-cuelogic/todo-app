@@ -23,8 +23,10 @@ export class SigninComponent implements OnInit {
   isAuthenticated = false;
   isLoading = false;
   errorMessage = '';
+
   ngOnInit(): void {
   }
+
   onSubmit() {
     this.isLoading = true;
     const email = this.signinForm.value.email;
@@ -32,12 +34,15 @@ export class SigninComponent implements OnInit {
     this.logInUSer(email,password); 
     this.resetForm();
   }
+
   get email() {
     return this.signinForm.get('email');
   }
+
   get password() {
     return this.signinForm.get('password');
   }
+
   resetForm() {
     this.signinForm.reset();
   }
@@ -47,17 +52,18 @@ export class SigninComponent implements OnInit {
       this.isLoading = false;
       this.isAuthenticated = true;
       this.authService.userData.next(this.isAuthenticated);
+     
       const userData: any = res;
       const email = userData.email;
       this.getUserData(email);
       this.userToken = userData.idToken
+     
       localStorage.setItem('userToken', this.userToken)
       localStorage.setItem('email', email);
       this.router.navigate(['tododashboard']);
     }, error=>{
       this.isLoading = false;
-      //this.errorMessage = error.error
-      console.log('ERROR', error.error.error.errors[0].message);
+      this.errorMessage = 'Some error has occured'
     })
   }
 

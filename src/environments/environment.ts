@@ -10,7 +10,8 @@ export const environment = {
     projectId: "todo-app-a6fc9",
     storageBucket: "todo-app-a6fc9.appspot.com",
     messagingSenderId: "264149784968",
-    appId: "1:264149784968:web:3dd415c485639f8fe1023d"
+    appId: "1:264149784968:web:3dd415c485639f8fe1023d",
+    url: "https://todo-app-a6fc9-default-rtdb.firebaseio.com"
   }
 };
 

@@ -3,6 +3,11 @@
       <app-loading-spinner></app-loading-spinner>
     </mat-grid-tile>
   </mat-grid-list>
+  <mat-grid-list *ngIf="errorMessage" cols=1 gutterSize=20px rowHeight=10:1> 
+    <mat-grid-tile>
+      {{ errorMessage }}
+    </mat-grid-tile>
+  </mat-grid-list>
 <mat-card *ngIf="!isLoading" class='cardpos' style="box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%) !important;">
     <mat-grid-list cols=1 gutterSize=20px rowHeight=6:1>
         <mat-grid-tile>

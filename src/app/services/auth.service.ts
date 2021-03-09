@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { v4 as uuidv4 } from 'uuid';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subject } from 'rxjs';
-
+import * as environment from '../../environments/environment';
 interface User {
   fname: string,
   lname: string,
@@ -51,7 +51,7 @@ export class AuthService {
   }
 
   signIn(email:string, password:string) {
-    return this.http.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBukyd8fZDl9214yRUAQaLjasrZaU8e7Ik', {
+    return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.environment.firebase.apiKey}`, {
       email: email,
       password: password,
       returnSecureToken: true
@@ -60,7 +60,7 @@ export class AuthService {
 
   createUser(userObj: Object) {
     const updatedObj = { ...userObj, id: uuidv4()}
-    fetch('https://todo-app-a6fc9-default-rtdb.firebaseio.com/users.json', {
+    fetch(`${environment.environment.firebase.url}/users.json`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -82,13 +82,13 @@ export class AuthService {
     this.userKey.subscribe(res=>{
        key = res
     }) 
-    return this.http.put(`https://todo-app-a6fc9-default-rtdb.firebaseio.com/users/${key}.json`, {
+    return this.http.put(`${environment.environment.firebase.url}/users/${key}.json`, {
       ...userObj
     })
   }
 
   deleteUser(key: string) {
-    return this.http.delete(`https://todo-app-a6fc9-default-rtdb.firebaseio.com/users/${key}.json`)
+    return this.http.delete(`${environment.environment.firebase.url}/users/${key}.json`)
   }
 
 }
