@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TodoService } from 'src/app/services/todo.service';
 import { TododialogComponent } from '../tododialog/tododialog.component';
@@ -12,7 +12,7 @@ import {
   templateUrl: './todolist.component.html',
   styleUrls: ['./todolist.component.css']
 })
-export class TodolistComponent implements OnInit {
+export class TodolistComponent implements OnInit, DoCheck {
 
   constructor(public dialog: MatDialog, private todoListService: TodoService, private snackBar: MatSnackBar) {
   }
@@ -27,7 +27,9 @@ export class TodolistComponent implements OnInit {
   isEditMode = false;
   todoItem: any;
   todoItemId: any;
- 
+  filteredList: any;
+  originalList: any;
+
   openDialog() {
     this.todoListService.isEditTodo.next(false);
     this.dialogRef = this.dialog.open(TododialogComponent, {panelClass: "todoListClass"});
@@ -40,12 +42,16 @@ export class TodolistComponent implements OnInit {
     this.getTodoList();
   }
 
+  ngDoCheck() {
+    console.log('DO CHECK');
+  }
+
   getTodoList() {
     this.todoListService.getTodoList().subscribe(res => {
       this.data = res
       const keys = Object.keys(res);
       this.list = keys.map(item => this.data[item]);
-      
+      this.originalList = this.list;
       this.todoListService.todoData.next(this.data);
     }, error => {
       console.log('ERROR', error);
@@ -56,18 +62,16 @@ export class TodolistComponent implements OnInit {
     this.dialog.open(TododialogComponent, {panelClass: 'todoEdit'});
     this.todoListService.isEditTodo.next(true);
     this.todoListService.todoDataId.next(id);
-    // this.dialogRef.afterClosed().subscribe((res: any) => {
-    //   this.getTodoList();
-    // });
   }
 
   searchValue() {
     if (this.searchValueData === '') {
-      this.ngOnInit();
+      this.list = this.originalList;
     } else {
-      this.list = this.list.filter((item: any) => {
+      this.filteredList = this.originalList.filter((item: any) => {
         return item.title.toLowerCase().match(this.searchValueData.toLowerCase());
       })
+      this.list = this.filteredList;
     }
   }
 

@@ -63,7 +63,7 @@ export class SigninComponent implements OnInit {
       this.router.navigate(['tododashboard']);
     }, error=>{
       this.isLoading = false;
-      this.errorMessage = 'Some error has occured'
+      this.errorMessage = error
     })
   }
 

@@ -90,7 +90,7 @@
             </mat-grid-list>
          <mat-grid-list cols=1 gutterSize=20px rowHeight=6:1>
              <mat-grid-tile>
-                <button mat-raised-button type="submit" color="primary">{{ isEdit ? 'Update' : 'Sign Up' }} </button>
+                <button mat-raised-button type="submit" color="primary" [disabled]="!signupForm.valid">{{ isEdit ? 'Update' : 'Sign Up' }} </button>
                 <button mat-raised-button type="button" style="margin-left: 21px;" (click)="resetForm()" color="accent">Reset</button>
              </mat-grid-tile>
          </mat-grid-list>

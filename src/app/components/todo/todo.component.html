@@ -43,6 +43,14 @@
             </div>
           </section>
         </mat-grid-tile>
+        <mat-grid-tile>
+            <input type="file" (change)="uploadFile($event)" accept=".jpeg .png .jpg" >
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div class="avatar-preview">
+                <img [src]="isEdit ? image : imageUrl" alt="" formControlName="todoImage">
+            </div>
+        </mat-grid-tile>
     </mat-grid-list>
     <mat-grid-list cols=1 gutterSize=20px rowHeight=10:1>
         <mat-grid-tile>

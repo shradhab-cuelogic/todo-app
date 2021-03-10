@@ -3,8 +3,9 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { HttpClient } from '@angular/common/http';
 import { v4 as uuidv4 } from 'uuid';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Subject, throwError } from 'rxjs';
 import * as environment from '../../environments/environment';
+import { catchError } from 'rxjs/operators';
 interface User {
   fname: string,
   lname: string,
@@ -26,6 +27,7 @@ export class AuthService {
   editUserData = new BehaviorSubject(Object);
   userKey = new BehaviorSubject('');
   onClose = new BehaviorSubject(false);
+  error = ''
   constructor(
     public afAuth: AngularFireAuth, //inject firebase auth service
     public router: Router,
@@ -44,10 +46,10 @@ export class AuthService {
       this.editUserData.next(response);
       console.log('response', response);
       this.router.navigate(['signin']);
-    } ) 
+    }) 
     .catch( error=> {
       this.errorMessage = error.message;
-    } )
+    })
   }
 
   signIn(email:string, password:string) {
@@ -55,7 +57,23 @@ export class AuthService {
       email: email,
       password: password,
       returnSecureToken: true
-    })
+    }).pipe(catchError(errorResponse=>{
+      this.error = 'An unknown error occured!'
+      if(!errorResponse.error || !errorResponse.error.error) {
+        return throwError(this.error);
+      }
+      switch(errorResponse.error.error.message) {
+        case 'EAMIL_EXISTS': 
+        this.error = 'This Email already exists';
+        break;
+        case 'INVALID_PASSWORD': 
+        this.error = "Invalid Password, please enter a valid password!";
+        break;
+        case 'EMAIL_NOT_FOUND':
+        this.error = "This email does not exist, please signup!"
+      }
+      return throwError(this.error)
+    }))
   }
 
   createUser(userObj: Object) {

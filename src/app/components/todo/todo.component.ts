@@ -28,7 +28,8 @@ export class TodoComponent implements OnInit, AfterViewInit {
   tempObj: any;
   formData: any;
   isReminder: any;
-
+  imageUrl: any;
+  image: any;
   constructor(private fb: FormBuilder,
      private todoService: TodoService,
      private snackBar: MatSnackBar,
@@ -56,7 +57,8 @@ export class TodoComponent implements OnInit, AfterViewInit {
       listOfTodo: new FormArray([]),
       title: ['', Validators.required],
       reminderDate: [''],
-      isReminder: [false]
+      isReminder: [false],
+      todoImage: [null]
     });
     this.addCheckboxes();
   }
@@ -72,7 +74,6 @@ export class TodoComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit() {
-    //this.getReminderDate(this.todoForm.value.reminderDate);
     if (this.isEdit) {
       this.todoService.todoDataId.subscribe(itemId => {
         this.todoService.getTodoObj(itemId).subscribe((res: any) => {
@@ -116,7 +117,6 @@ export class TodoComponent implements OnInit, AfterViewInit {
   }
 
   isReminderChecked(event: any) {
-    console.log('EVENT FROM TOGGLE', event.checked)
     this.reminderChecked = event.checked;
     this.todoForm.patchValue({
       isReminder: this.reminderChecked ? true : false
@@ -124,7 +124,6 @@ export class TodoComponent implements OnInit, AfterViewInit {
   }
 
   updateTodo() {
-    console.log('ISEDIT', this.isEdit);
     this.todoService.todoDataId.subscribe(val => {
       this.todoItemId = val;
     })
@@ -133,15 +132,15 @@ export class TodoComponent implements OnInit, AfterViewInit {
       const key = Object.keys(this.tempObj);
       this.formData = key.map(item => this.tempObj[item]);
       this.isReminder = this.formData[0].isReminder;
-      console.log(this.formData)
+      this.image = this.formData[0].todoImage;
       this.todoForm.patchValue({
         title: this.formData[0]?.title,
         isReminder: this.formData[0]?.isReminder,
         listOfTodo: this.formData[0]?.listOfTodo,
-        reminderDate: this.formData[0]?.reminderDate
+        reminderDate: this.formData[0]?.reminderDate,
+        todoImage: this.formData[0]?.todoImage
       })
     })
-    console.log(this.todoForm.value)
 
   }
 
@@ -163,6 +162,20 @@ export class TodoComponent implements OnInit, AfterViewInit {
   onClose() {
     console.log('From Close');
 
+  }
+
+  uploadFile(event: any) {
+    const file = event.target.files[0];
+    let reader = new FileReader();
+    if(event.target.files && event.target.files[0]) {
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.imageUrl = reader.result;
+        this.todoForm.patchValue({
+          todoImage: this.imageUrl 
+        })
+      }
+    }
   }
 
 }
