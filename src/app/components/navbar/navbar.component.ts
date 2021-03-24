@@ -42,6 +42,7 @@ export class NavbarComponent implements OnInit {
     // const data: any = localStorage.getItem('userData');
     // Object.keys(data);
     this.userId = localStorage.getItem('userId')
+    console.log(this.userId);
     this.router.navigate(['profilepage', this.userId]);
   }
 }

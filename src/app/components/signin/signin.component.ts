@@ -16,8 +16,8 @@ export class SigninComponent implements OnInit {
     private router: Router,
     private profilePageService: ProfilepageService) { }
   signinForm = this.fb.group({
-    email: ['', Validators.required],
-    password: ['', Validators.required]
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]]
   });
   userToken: any;
   isAuthenticated = false;
@@ -55,6 +55,7 @@ export class SigninComponent implements OnInit {
      
       const userData: any = res;
       const email = userData.email;
+      console.log('USERDATA', userData);
       this.getUserData(email);
       this.userToken = userData.idToken
      
@@ -73,6 +74,7 @@ export class SigninComponent implements OnInit {
       const keys = Object.keys(data);
       const list = keys.map(item=>{ return data[item] })
       localStorage.setItem('userId', list[0].id)
+      console.log('userdata', list);
     })
   }
 }

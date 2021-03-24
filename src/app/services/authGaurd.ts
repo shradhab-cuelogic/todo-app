@@ -12,11 +12,11 @@ export class AuthGuard implements CanActivate {
         this.authService.userData.subscribe(value=>{
             isAuthenticated = value
         })
-        console.log(isAuthenticated);
+        //console.log(isAuthenticated);
         if(!isAuthenticated) {
             alert('You are not allowed to view this page. You are redirected to login Page');
-            this.router.navigate(["signin"], { queryParams : { returnUrl: route.url } });
-
+            this.router.navigate(["signin"]);
+           // console.log('return url', route.url)
             return false; 
         }
 

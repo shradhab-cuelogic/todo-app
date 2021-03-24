@@ -16,10 +16,8 @@ export class ContactComponent implements OnInit {
 
   getTodolist() {
     this.todoList.getTodoList().subscribe(res=>{
-      console.log(res)
     },
     error=>{
-      console.log(error)
     })
   }
 

@@ -24,13 +24,11 @@ export class ProfilepageComponent implements OnInit {
   dialogRef: any;
   ngOnInit(): void {
     this.getUserData()
-    console.log(this.routeParam.snapshot)
   }
 
   getUserData() {
       const email: any = localStorage.getItem('email');
       this.profilePageService.getUserInfo(email).subscribe( res =>{
-        console.log('res from profile', res);
         this.isLoading = false;
         this.userKey = Object.keys(res)[0];
         this.authService.userKey.next(this.userKey);
@@ -38,10 +36,8 @@ export class ProfilepageComponent implements OnInit {
         const userDataKey: any = Object.keys(response);
         this.userData = response[userDataKey[0]];
         this.authService.editUserData.next(this.userData);
-        console.log(this.userData);
         //localStorage.setItem('userdata', JSON.stringify(this.userData))
       }, error=>{
-        console.log('error', error);
       })  
   }
   

@@ -12,7 +12,7 @@ import {
   templateUrl: './todolist.component.html',
   styleUrls: ['./todolist.component.css']
 })
-export class TodolistComponent implements OnInit, DoCheck {
+export class TodolistComponent implements OnInit {
 
   constructor(public dialog: MatDialog, private todoListService: TodoService, private snackBar: MatSnackBar) {
   }
@@ -29,7 +29,15 @@ export class TodolistComponent implements OnInit, DoCheck {
   todoItemId: any;
   filteredList: any;
   originalList: any;
-
+  selectedValue: string;
+  isEditable = false;
+  arrowUpward: boolean = true;
+  arrowDownward: boolean = false
+  orderBy: any;
+  sortFields = [
+    {value: 'date', viewValue: 'Date'},
+    {value: 'title', viewValue: 'Title'},
+  ];
   openDialog() {
     this.todoListService.isEditTodo.next(false);
     this.dialogRef = this.dialog.open(TododialogComponent, {panelClass: "todoListClass"});
@@ -42,10 +50,6 @@ export class TodolistComponent implements OnInit, DoCheck {
     this.getTodoList();
   }
 
-  ngDoCheck() {
-    console.log('DO CHECK');
-  }
-
   getTodoList() {
     this.todoListService.getTodoList().subscribe(res => {
       this.data = res
@@ -53,6 +57,8 @@ export class TodolistComponent implements OnInit, DoCheck {
       this.list = keys.map(item => this.data[item]);
       this.originalList = this.list;
       this.todoListService.todoData.next(this.data);
+      this.sortField('date', this.originalList, 'desc');
+
     }, error => {
       console.log('ERROR', error);
     })
@@ -100,5 +106,42 @@ export class TodolistComponent implements OnInit, DoCheck {
     })
   }
 
+  onEditClick() {
+    this.isEditable = !this.isEditable;
+    console.log(this.isEditable);
+    this.orderBy = !this.isEditable ? 'asc' : 'desc';
+    console.log('THIS>ORDERBY', this.orderBy);
+    this.sortField(this.selectedValue, this.originalList, this.orderBy);
+  }
+
+  getSortValue() {
+    const key = this.selectedValue;
+    console.log('this.orderBy', this.orderBy);
+    //const orderBy = "desc";
+    this.sortField(key, this.originalList, this.orderBy )
+  }
+
+  sortField(key:any, list:any, orderBy="asc") {
+    const sortedList = list.sort(( item1: any, item2: any )=>{
+      if(orderBy === 'asc') {
+        return item1[key] < item2[key] ? -1 : 1
+      } 
+        return item1[key] > item2[key] ? -1 : 1
+    })
+    console.log('SORTEDLIST', sortedList)
+    this.list = sortedList;
+  }
+
+  getDate() {
+    console.log('helloo', this.originalList)
+    // let date = ''
+  return  this.originalList.map((item:any)=>{
+      if(item.date !== new Date()) {
+        return item.date
+      }
+      return 'today';
+    })
+
+  }
 }
 

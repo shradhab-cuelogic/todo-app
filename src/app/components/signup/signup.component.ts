@@ -1,7 +1,8 @@
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms'; 
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'; 
 import { AuthService } from '../../services/auth.service';
 import { ProfilepageComponent } from '../profilepage/profilepage.component';
+import { mustMatch } from '../../app/_helpers/mustMatch.validator';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -13,14 +14,16 @@ export class SignupComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private authService: AuthService,  private cd: ChangeDetectorRef) { }
   signupForm = this.fb.group({
-    email: ['', Validators.required],
-    password: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(7)]],
     confirm_password:['', Validators.required],
     fname: ['', Validators.required],
     lname: ['', Validators.required],
     address: ['', Validators.required],
     profilePicture: [null],
     gender: [''],
+  }, {
+    validator: mustMatch('password', 'confirm_password')
   })
   errorMessage = '';
   isEdit= false;
@@ -43,7 +46,6 @@ export class SignupComponent implements OnInit {
   onSubmit() {
     this.isLoading = true; 
     if (this.isEdit) {
-      console.log('form', this.signupForm);
       this.authService.updateUSer(this.signupForm.value).subscribe(res=>{
         this.isLoading = false;
       },
@@ -51,7 +53,6 @@ export class SignupComponent implements OnInit {
         console.log(error);
       })
     } else {
-      console.log('FROM SIGNUP', this.signupForm.value, this.imageUrl);
       if (this.signupForm.value.password === this.signupForm.value.confirm_password) {
         this.authService.signUp(this.signupForm.value);
         this.resetForm();

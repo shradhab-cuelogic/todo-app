@@ -19,6 +19,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatSelectModule} from '@angular/material/select';
+import {MatIconModule} from '@angular/material/icon';
 
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SignupComponent } from './components/signup/signup.component';
@@ -85,6 +87,8 @@ import { TestingAuthComponent } from './app/components/testing-auth/testing-auth
     MatGridListModule,
     HttpClientModule,
     MatSlideToggleModule,
+    MatSelectModule,
+    MatIconModule
   ],
   providers: [
     AuthService,

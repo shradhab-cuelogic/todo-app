@@ -1,11 +1,26 @@
 
 <button mat-raised-button (click)="openDialog()" style="margin-left: 20px; margin-top: 20px;">Add todo</button>
-<!-- <span class="searchPos" ><app-search [parentData]="list" (searchEvent)="listFromSearch=$event"></app-search></span> -->
 <span>
     <mat-form-field class="searchPos">
         <input  type="text" placeholder="Search" [(ngModel)]="searchValueData" (ngModelChange)="searchValue()" matInput>
     </mat-form-field>
 </span>
+<mat-form-field >
+    <mat-label>Sort By</mat-label>
+    <mat-select [(ngModel)]="selectedValue" name="temp" (ngModelChange)="getSortValue()">
+        <mat-option *ngFor="let temp of sortFields" [value]="temp.value">
+          {{temp.viewValue}}
+        </mat-option>
+      </mat-select>
+  </mat-form-field>
+  <span>
+    <button *ngIf="!isEditable" mat-fab color="primary" (click)="onEditClick()" [disabled]="!selectedValue">
+        <mat-icon>arrow_upward</mat-icon>
+      </button>
+      <button *ngIf="isEditable" mat-fab color="primary" (click)="onEditClick()" [disabled]="!selectedValue">
+        <mat-icon>arrow_downward</mat-icon>
+      </button>
+  </span>
 <div *ngIf="list.length === 0"> 
     <span style="font-weight: 600; font-size: larger;">NO DATA TO SHOW, PLEASE ADD</span>
 </div>
