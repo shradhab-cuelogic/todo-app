@@ -45,6 +45,7 @@ import { ContactComponent } from './app/components/contact/contact.component';
 import { AuthGuard } from './services/authGaurd';
 import { TestingAuthComponent } from './app/components/testing-auth/testing-auth.component';
 import {MatTableModule} from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 @NgModule({
   declarations: [
     AppComponent,
@@ -89,7 +90,8 @@ import {MatTableModule} from '@angular/material/table';
     MatSlideToggleModule,
     MatSelectModule,
     MatIconModule,
-    MatTableModule
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [
     AuthService,
