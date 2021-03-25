@@ -44,7 +44,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { ContactComponent } from './app/components/contact/contact.component';
 import { AuthGuard } from './services/authGaurd';
 import { TestingAuthComponent } from './app/components/testing-auth/testing-auth.component';
-
+import {MatTableModule} from '@angular/material/table';
 @NgModule({
   declarations: [
     AppComponent,
@@ -88,7 +88,8 @@ import { TestingAuthComponent } from './app/components/testing-auth/testing-auth
     HttpClientModule,
     MatSlideToggleModule,
     MatSelectModule,
-    MatIconModule
+    MatIconModule,
+    MatTableModule
   ],
   providers: [
     AuthService,
