@@ -1,30 +1,30 @@
 
 <button mat-raised-button (click)="openDialog()" style="margin-left: 20px; margin-top: 20px;">Add todo</button>
-<span>
+<!-- <span>
     <mat-form-field class="searchPos">
         <input  type="text" placeholder="Search" [(ngModel)]="searchValueData" (ngModelChange)="searchValue()" matInput>
     </mat-form-field>
-</span>
-<mat-form-field >
+</span> -->
+<!-- <mat-form-field >
     <mat-label>Sort By</mat-label>
     <mat-select [(ngModel)]="selectedValue" name="temp" (ngModelChange)="getSortValue()">
         <mat-option *ngFor="let temp of sortFields" [value]="temp.value">
           {{temp.viewValue}}
         </mat-option>
       </mat-select>
-  </mat-form-field>
-  <span>
+  </mat-form-field> -->
+  <!-- <span>
     <button *ngIf="!isEditable" mat-fab color="primary" (click)="onEditClick()" [disabled]="!selectedValue">
         <mat-icon>arrow_upward</mat-icon>
       </button>
       <button *ngIf="isEditable" mat-fab color="primary" (click)="onEditClick()" [disabled]="!selectedValue">
         <mat-icon>arrow_downward</mat-icon>
       </button>
-  </span>
-<div *ngIf="list.length === 0"> 
+  </span> -->
+<div *ngIf="list.length === 0" class="tableWidth"> 
     <span style="font-weight: 600; font-size: larger;">NO DATA TO SHOW, PLEASE ADD</span>
 </div>
-<div *ngFor="let item of list">
+<!-- <div *ngFor="let item of list">
     <mat-grid-list cols=1 gutterSize=10px rowHeight=6:1 >
         <mat-grid-tile>
                 <mat-card style="width: 25em; height: 12em;" class="box-shadow">
@@ -44,7 +44,7 @@
                     </mat-grid-list>
                 </mat-card>
         </mat-grid-tile>
-    </mat-grid-list>
+    </mat-grid-list> -->
 
     <!-- <mat-list>
         <mat-card class="cardpos">
@@ -59,43 +59,31 @@
             </mat-card-actions>
         </mat-card>
        </mat-list> -->
-</div>
+<!-- </div> -->
 
-<div>
-    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-        <!-- Position Column -->
-        <ng-container matColumnDef="position">
-          <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+<div *ngIf="list.length >= 1">
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8 tableWidth">
+      
+        <ng-container matColumnDef="title">
+          <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.title}} </mat-cell>
         </ng-container>
       
-        <!-- Name Column -->
-        <ng-container matColumnDef="name">
-          <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+        <ng-container matColumnDef="email">
+          <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
         </ng-container>
       
-        <!-- Weight Column -->
-        <ng-container matColumnDef="weight">
-          <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+        <ng-container matColumnDef="date">
+          <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.date | date}} </mat-cell>
         </ng-container>
-      
-        <!-- Symbol Column -->
-        <ng-container matColumnDef="symbol">
-          <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
-        </ng-container>
-      
+             
         <ng-container matColumnDef="actions">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let row;">
-          <button mat-icon-button>
-            <mat-icon>launch</mat-icon>        
-          </button>
-          <button mat-icon-button>
-            <mat-icon color="warn">delete</mat-icon>
-          </button>
+                <button mat-raised-button (click)="onEdit(row.id)" color="primary">EDIT</button>
+                <button mat-raised-button (click)="onDelete(row.id)" color="warn" style="margin-left: 10px;">DELETE</button>
         </mat-cell>
         </ng-container>
 

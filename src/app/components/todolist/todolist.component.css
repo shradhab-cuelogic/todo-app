@@ -15,5 +15,9 @@
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%) !important;
 }
 table {
-    width: 100%;
+    width: 50%;
   }
+.tableWidth {
+    width: 50% !important;
+    margin: auto 25% !important;
+}  
