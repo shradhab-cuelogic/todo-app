@@ -9,7 +9,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { TodoComponent } from './components/todo/todo.component';
 import { TodolistComponent } from './components/todolist/todolist.component';
 import { AuthGuard } from './services/authGaurd';
-
+import { AppTodoModule } from '../app/modules/feature-module/app-todo/app-todo.module'
 const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'signin', component: SigninComponent },
@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'tododashboard', component: TodolistComponent, canActivate: [ AuthGuard ]  },
   { path: 'testing', component: TestingAuthComponent, canActivate: [ AuthGuard ] },
   { path: 'todo', component: TodoComponent},
+  { path: 'testlazy', loadChildren: '../app/modules/feature-module/app-todo/app-todo.module#AppTodoModule' },
   { path: '**', component: PagenotfoundComponent}
 ];
 

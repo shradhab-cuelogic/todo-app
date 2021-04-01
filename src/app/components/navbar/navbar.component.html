@@ -4,6 +4,7 @@
         <span *ngIf="!isAuthenticated">
             <span routerLink="signup">SignUp </span>
             <span routerLink="signin">SignIn</span>
+            <span routerLink="testlazy">Lazy</span>>
         </span>
             <span *ngIf="isAuthenticated">
                 <span routerLink="profilepage" (click)="fetchUserData()">Profile Page</span>
