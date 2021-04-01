@@ -2,7 +2,7 @@ import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'; 
 import { AuthService } from '../../services/auth.service';
 import { ProfilepageComponent } from '../profilepage/profilepage.component';
-import { mustMatch } from '../../app/_helpers/mustMatch.validator';
+import { mustMatch } from '../../_helpers/mustMatch.validator';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',

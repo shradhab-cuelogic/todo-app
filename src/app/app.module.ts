@@ -18,11 +18,10 @@ import { TododialogComponent } from './components/tododialog/tododialog.componen
 import { SearchComponent } from './components/search/search.component';
 import { EditdialogComponent } from './components/editdialog/editdialog.component';
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
-import { ContactComponent } from './app/components/contact/contact.component';
 import { AuthGuard } from './services/authGaurd';
-import { TestingAuthComponent } from './app/components/testing-auth/testing-auth.component';
-import { AppMaterialModule } from './app/coreModule/app-material.module';
-import { AppFirebaseModule } from './app/coreModule/app-firebase.module';
+import { TestingAuthComponent } from './components/testing-auth/testing-auth.component';
+import { AppMaterialModule } from './modules/core-module/app-material.module';
+import { AppFirebaseModule } from './modules/core-module/app-firebase.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +36,6 @@ import { AppFirebaseModule } from './app/coreModule/app-firebase.module';
     SearchComponent,
     EditdialogComponent,
     PagenotfoundComponent,
-    ContactComponent,
     TestingAuthComponent
   ],
   entryComponents: [TododialogComponent],
