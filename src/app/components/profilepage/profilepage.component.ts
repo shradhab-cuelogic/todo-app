@@ -12,6 +12,8 @@ import { AuthService } from 'src/app/services/auth.service';
 
 export class ProfilepageComponent implements OnInit {
   
+  user : { id:number, name: string };
+
   constructor(public profilePageService: ProfilepageService,
      private router: Router, 
      public dialog: MatDialog,
@@ -23,7 +25,8 @@ export class ProfilepageComponent implements OnInit {
   isLoading: boolean =  true;
   dialogRef: any;
   ngOnInit(): void {
-    this.getUserData()
+    this.getUserData();
+    // this.user = ''
   }
 
   getUserData() {
@@ -42,6 +45,7 @@ export class ProfilepageComponent implements OnInit {
   }
   
   onEdit(){
+    console.log('ROUTEPARAM', this.routeParam.params);
     this.dialogRef = this.dialog.open(EditdialogComponent, {panelClass: "foo"});
     this.authService.editUser.next(true);
     this.dialogRef.afterClosed().subscribe( (res: any) => {

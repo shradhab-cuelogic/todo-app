@@ -10,6 +10,7 @@ export class TododialogComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log('FROM TODODIALOG')
   }
 
 }

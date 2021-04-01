@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, DoCheck, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TodoService } from 'src/app/services/todo.service';
 import { TododialogComponent } from '../tododialog/tododialog.component';
@@ -9,19 +9,24 @@ import {
 } from '@angular/material/snack-bar';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { TodoComponent } from '../todo/todo.component';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-todolist',
   templateUrl: './todolist.component.html',
   styleUrls: ['./todolist.component.css']
 })
-export class TodolistComponent implements OnInit {
+export class TodolistComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  constructor(public dialog: MatDialog, private todoListService: TodoService, private snackBar: MatSnackBar) {
+  @ViewChild(MatSort) matSort: MatSort;
+
+  constructor(public dialog: MatDialog, private todoListService: TodoService, private snackBar: MatSnackBar, private router: Router) {
   }
 
   displayedColumns: string[] = ['date', 'title', 'email', 'actions'];
-  dataSource: any;
+  dataSource = new MatTableDataSource();
   list: any = [];
   categories: any = [];
   listFromSearch: any = [];
@@ -55,6 +60,10 @@ export class TodolistComponent implements OnInit {
     this.getTodoList();
   }
 
+  ngAfterViewInit() {
+    this.dataSource.sort = this.matSort;
+  }
+
   getTodoList() {
     this.todoListService.getTodoList().subscribe(res => {
       this.data = res
@@ -64,7 +73,9 @@ export class TodolistComponent implements OnInit {
       this.todoListService.todoData.next(this.data);
       this.sortField('date', this.originalList, 'desc');
       this.dataSource = new MatTableDataSource(this.list);
-      this.dataSource.paginator = this.paginator
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.matSort;
+      
     }, error => {
       console.log('ERROR', error);
     })
@@ -72,7 +83,8 @@ export class TodolistComponent implements OnInit {
 
   onEdit(id: string) {
     console.log('id', id)
-    this.dialog.open(TododialogComponent, {panelClass: 'todoEdit'});
+    this.dialog.open(TodoComponent, {panelClass: 'todoEdit'});
+    //this.router.navigate(['todo/edit', id])
     this.todoListService.isEditTodo.next(true);
     this.todoListService.todoDataId.next(id);
   }

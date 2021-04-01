@@ -21,8 +21,8 @@ import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.co
 import { ContactComponent } from './app/components/contact/contact.component';
 import { AuthGuard } from './services/authGaurd';
 import { TestingAuthComponent } from './app/components/testing-auth/testing-auth.component';
-import { AppMaterialModule } from './coreModule/app-material.module';
-import { AppFirebaseModule } from './coreModule/app-firebase.module';
+import { AppMaterialModule } from './app/coreModule/app-material.module';
+import { AppFirebaseModule } from './app/coreModule/app-firebase.module';
 @NgModule({
   declarations: [
     AppComponent,

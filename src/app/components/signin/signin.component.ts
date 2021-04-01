@@ -73,6 +73,7 @@ export class SigninComponent implements OnInit {
       const data: any = res
       const keys = Object.keys(data);
       const list = keys.map(item=>{ return data[item] })
+      
       localStorage.setItem('userId', list[0].id)
       console.log('userdata', list);
     })
